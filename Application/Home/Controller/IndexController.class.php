@@ -65,7 +65,7 @@ class IndexController extends Controller {
         
          $model = M('H_section');
         
-       $data = $model->field('id,pid,job')->where('pid =0 ')->select();
+        $data = $model->field('id,pid,job')->where('pid =0 ')->select();
         
          $this ->data =$data;
       
@@ -87,7 +87,7 @@ class IndexController extends Controller {
         
        $this ->data =$data;
        
-       var_dump($data) ;
+//        var_dump($data) ;
         
          $this ->display();
         

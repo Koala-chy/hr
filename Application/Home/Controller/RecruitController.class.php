@@ -147,10 +147,19 @@ class RecruitController extends Controller{
              $job = I('post.job');
              
               $where['id'] = $id;
-             $data['job'] = $job;
+              $data['job'] = $job;
              $model = M('H_section');
-          
-             $res = $model -> where($where) ->save();             
+             
+             $res = $model -> where($where) ->save($data);      
+             
+             if($res){
+                 
+                 $this->success('修改成功','/Index/section_manage');
+                 
+             }  else {
+                 
+                 $this->error('修改失败');
+             }
  
     }
     
