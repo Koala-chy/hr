@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <title>部门及岗位管理</title>
+        <link rel="stylesheet" href="PUBLIC/plugins/layui/css/layui.css" media="all" />
+        <link rel="stylesheet" href="CSS_PATH/global.css" media="all">
+        <link rel="stylesheet" href="PUBLIC/plugins/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="CSS_PATH/table.css" />
+        <link rel="stylesheet" href="CSS_PATH/page.css" />
+    </head>
+
+    <body>
+        <div class="admin-main">
+
+            <blockquote class="layui-elem-quote">
+                <a href="__URL__/add_section.html" class="layui-btn layui-btn-small" id="add">
+                    <i class="layui-icon">&#xe608;</i> 新增部门
+                </a>
+
+                <a href="javascript:;" class="layui-btn layui-btn-small" id="search">
+                    <i class="layui-icon">&#xe615;</i> 搜索
+                </a>
+            </blockquote>
+            <div class="pages">{$page}</div>
+
+            <fieldset class="layui-elem-field">
+                <legend>部门及岗位列表</legend>
+                <div class="layui-field-box">
+                    <table class="site-table table-hover">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>部门</th>
+                                <th>岗位</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        <volist name="data" id="row">
+                            <if condition="$row['pid'] eq 0">
+                                <tr>
+                                    <td>{$row.id}</td>
+                                    <td>{$row.job}</td>
+                                    <td>
+                                        <table class="site-table table-hover">
+                                            <volist name="Job_data" id="v">
+                                                <if  condition="($v['pid']  eq $row['id'])  AND ($v['job'] neq  '' ) ">
+                                                    <tr>
+                                                        <td  class="td">
+                                                            <i class="layui-icon">&#xe612;</i>
+                                                            <input type="hidden" value="{$v.id}" class="vid">
+                                                            <input disabled="disabled" type="text" value="{$v.job}" class='job'>                          
+                                                        </td>
+
+                                                    </tr>
+                                                </if>
+                                            </volist>
+                                        </table>
+                                    </td>
+                                    <td>
+                                        <a href="__URL__/add_job/id/{$row.id}"  class="layui-btn layui-btn-normal layui-btn-mini">添加岗位</a>
+                                        <a href="{:U('Index/edit_resume/id/'.$row['id'])}" class="layui-btn layui-btn-mini">编辑</a>
+                                        <a href="{:U('Recruit/del_section/id/'.$row['id'])}" data-id="1" data-opt="del" class="layui-btn layui-btn-danger layui-btn-mini">删除</a>
+                                    </td>
+                                </tr>
+                            </if>
+                        </volist>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+            </fieldset>
+         
+        </div>
+        <script type="text/javascript" src="PUBLIC/plugins/layui/layui.js"></script>
+        <script>
+            layui.config({
+                base: '/Public/plugins/layui/modules/'
+            });
+
+            layui.use(['layer','icheck'], function () {
+                var $ = layui.jquery;
+              
+             
+                  //后面就跟你平时使用jQuery一样
+                  $('.td').each(function () {
+                      
+                        $(this).click(function(){
+                            
+                            $(this).children('.job').removeAttr('disabled');
+                            
+                        });
+                        
+                         $(this).children('.job').blur(function(){
+                                   
+                                  var  id = $(this).prev().val();  
+                                  
+                                  var  val =$(this).val();
+                                  
+                                 $(this).attr("disabled","disabled");
+                                 
+                                 $.ajax({
+                                     
+                                           type:"post",
+                         
+                                           url:"{:U('Recruit/edit_job')}",
+                         
+                                           data:{
+                             
+                                                   'id' :id,
+                                                   'val':val
+                                          },
+                         
+                                           dataType:"json",
+                         
+                                         success:function(data){
+                            
+                                             if(data){
+                                                
+                                                 layer.msg('修改成功');
+                                                 
+                                             }
+                           
+                                      
+                           
+                                          }
+                                    
+                                 });
+    
+                       });
+                        
+                        
+                  });
+
+
+
+            });
+        </script>
+    </body>
+
+</html>
