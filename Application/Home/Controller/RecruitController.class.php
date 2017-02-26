@@ -136,9 +136,12 @@ class RecruitController extends Controller{
         }
          
     }
-    
-    
-    
+
+
+    /**
+     * 修改部门
+     * @开发者:ChangHongYang
+     */
     
     public function save_resume(){
         
@@ -162,9 +165,44 @@ class RecruitController extends Controller{
              }
  
     }
+
+
+    /**
+     * 增加招聘需求
+     * @开发者:ChangHongYang
+     */
     
-    
-     
+    public function Ad_need(){
+
+       $model = M('H_requirements');
+
+//       var_dump($model);
+
+       $data = $model -> create();
+       $model ->arrivaldate =strtotime($model->arrivaldate);
+       $model ->createtime =time();
+
+       $error = $model ->getError();
+
+       if(!empty($data)){
+
+           $res = $model ->add();
+
+           if($res){
+
+               $this ->success('添加成功','/Index/recruit');
+
+           }else{
+
+               $this ->error($error);
+           }
+
+       }
+
+
+    }
+
+
 
     
   

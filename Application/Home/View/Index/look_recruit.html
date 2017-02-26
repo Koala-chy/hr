@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>招聘需求信息</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="PUBLIC/plugins/layui/css/layui.css" media="all" />
+    <link rel="stylesheet" href="PUBLIC/plugins/font-awesome/css/font-awesome.min.css">
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+</head>
+<body>
+<div style="margin: 15px;">
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+        <legend>招聘信息</legend>
+    </fieldset>
+
+    <form class="layui-form" action="{:U('Recruit/Ad_need')}" method="post">
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">职位名称：</label>
+            <div class="layui-inline">
+                <input type="text" value="{$data.position}"  class="layui-input" style="border: none">
+            </div>
+
+            <div class="layui-inline"></div>
+            <div class="layui-inline"></div>
+            <div class="layui-inline"></div>
+            <div class="layui-inline"></div>
+
+            <div class="layui-inline">
+                <label class="layui-form-label">优先级：</label>
+                <div class="layui-input-inline">
+                    <switch name="data.priority">
+                        <case value="0">
+                            <input type="text" value="低"  class="layui-input" style="border: none">
+                        </case>
+                        <case value="1">
+                            <input type="text" value="中"  class="layui-input" style="border: none">
+                        </case>
+                        <case value="2">
+                            <input type="text" value="高"  class="layui-input" style="border: none">
+                        </case>
+                    </switch>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="layui-form-item">
+
+            <div class="layui-inline">
+                <label class="layui-form-label">人数：</label>
+                <div class="layui-input-inline">
+                    <input type="text" value="{$data.number}人"  class="layui-input" style="border: none">
+                </div>
+            </div>
+
+            <div class="layui-inline"></div>
+            <div class="layui-inline"></div>
+            <div class="layui-inline"></div>
+
+            <div class="layui-inline">
+                <label class="layui-form-label">工作地点：</label>
+                <div class="layui-input-inline">
+                    <input type="text" value="{$data.site}"  class="layui-input" style="border: none">
+                </div>
+            </div>
+
+        </div>
+
+        <div class="layui-form-item">
+
+            <div class="layui-inline">
+                <label class="layui-form-label">工作经验：</label>
+                <div class="layui-input-inline">
+                    <input type="text" value="{$data.experience}"  class="layui-input" style="border: none">
+                </div>
+            </div>
+
+            <div class="layui-inline"></div>
+            <div class="layui-inline"></div>
+            <div class="layui-inline"></div>
+
+            <div class="layui-inline">
+                <label class="layui-form-label">到岗日期：</label>
+                <div class="layui-input-inline">
+                    <input type="text" value="{$data.arrivaldate|date='Y-m-d',###}"  class="layui-input" style="border: none">
+                </div>
+            </div>
+
+        </div>>
+
+
+        <div class="layui-form-item">
+
+            <div class="layui-inline">
+                <label class="layui-form-label">学历要求：</label>
+                <div class="layui-input-inline">
+                    <input type="text" value="{$data.education}"  class="layui-input" style="border: none">
+                </div>
+            </div>
+
+            <div class="layui-inline"></div>
+            <div class="layui-inline"></div>
+            <div class="layui-inline"></div>
+
+            <div class="layui-inline">
+                <label class="layui-form-label">年龄要求：</label>
+
+                <div class="layui-input-inline">
+                    <input type="text" value="{$data.age}"  class="layui-input" style="border: none">
+                </div>
+            </div>
+
+        </div>
+
+
+
+        <div class="layui-form-item">
+
+            <div class="layui-inline">
+                <label class="layui-form-label">性别要求：</label>
+                <div class="layui-input-inline">
+                    <input type="text" value="{$data.sex}"  class="layui-input" style="border: none">
+                </div>
+            </div>
+
+            <div class="layui-inline"></div>
+            <div class="layui-inline"></div>
+            <div class="layui-inline"></div>
+
+            <div class="layui-inline">
+                <label class="layui-form-label">薪资待遇：</label>
+                <div class="layui-input-inline" style="width: 45px;">
+                    <input type="text"  class="layui-input" value="{$data.minpay}" style="border: none">
+                </div>
+                <div class="layui-form-mid">~~</div>
+                <div class="layui-input-inline" style="width: 60px;">
+                    <input type="text" class="layui-input" value="{$data.maxpay}&nbsp;¥" style="border: none">
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">工作性质：</label>
+            <div class="layui-input-inline">
+                <input type="text" value="{$data.jobnature}"  class="layui-input" style="border: none">
+            </div>
+        </div>
+
+
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">岗位要求：</label>
+            <div class="layui-input-block">
+                <textarea  class="layui-textarea" style="border: none">{$data.requirements}</textarea>
+            </div>
+        </div>
+
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <a class="layui-btn" lay-submit="" lay-filter="demo1">招聘完成</a>
+                <a type="reset" class="layui-btn layui-btn-primary">修改</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript" src="PUBLIC/plugins/layui/layui.js"></script>
+<script>
+
+    layui.config({
+        base: '/Public/plugins/layui/modules/'
+    });
+
+
+    layui.use(['form', 'layedit', 'laydate'], function(){
+        var form = layui.form(),
+                $ = layui.jquery,
+                layer = layui.layer,
+                layedit = layui.layedit,
+                laydate = layui.laydate;
+
+
+
+
+    });
+</script>
+</body>
+
+</html>

@@ -84,8 +84,12 @@ class IndexController extends Controller {
          $this -> display();
         
     }
-    
-    
+
+
+    /**
+     * 修改部门
+     * @开发者:ChangHongYang
+     */
     
     public function edit_resume(){
         
@@ -105,8 +109,67 @@ class IndexController extends Controller {
         
     }
 
-    
 
+    /**
+     * 显示招聘需求列表
+     * @开发者:ChangHongYang
+     */
+    public function recruit(){
+
+       $model = M('H_requirements');
+
+       $data = $model ->field('id,position,priority,createtime,number,type')->select();
+
+//       var_dump($data);
+
+       $this ->data =$data;
+       $this -> display();
+    }
+
+
+
+
+    /**
+     * 新增招聘需求
+     * @开发者:ChangHongYang
+     */
+
+    public function add_need(){
+
+        $model = M('H_section');
+
+        $data =$model -> field('id,pid,job')->select();
+
+//        var_dump($data);
+
+        $this ->data =$data;
+
+        $this -> display();
+
+    }
+
+
+    /**
+     * 查看招聘信息
+     * @开发者:ChangHongYang
+     */
+    public function look_recruit(){
+
+        $model = M('H_requirements');
+
+        $id = I('get.id');
+
+        $where['id'] = $id;
+
+        $data = $model ->where($where)->find();
+
+//        var_dump($data);
+
+        $this -> data =$data;
+
+        $this ->display();
+
+    }
 
 
 

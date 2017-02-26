@@ -20,20 +20,25 @@
         <legend>新建需求</legend>
     </fieldset>
 
-    <form class="layui-form" action="" name="theForm">
+    <form class="layui-form" action="{:U('Recruit/Ad_need')}" method="post">
 
         <div class="layui-form-item">
             <label class="layui-form-label">*职位名称</label>
             <div class="layui-inline">
            
-               <select name="" id="job">
-                   <option>请选择</option>
-                   <optgroup label="技术部">
-                       <option value="PHP工程师">PHP工程师</option>
+               <select name="position" id="job" lay-filter="job" lay-verify="required">
+                   <option value="">请选择</option>
+                  <volist name="data" id="row">
+                      <if condition="$row['pid'] eq 0">
+                   <optgroup label="{$row['job']}">
+                       <volist name="data" id="v">
+                           <if condition="$row['id'] eq $v['pid']">
+                       <option value="{$v.job}">{$v.job}</option>
+                           </if>
+                       </volist>
                    </optgroup>
-                   <optgroup label="产品部">
-                       <option value="产品经理">产品经理</option>                 
-                   </optgroup>
+                      </if>
+                  </volist>
                </select>
             </div>
 
@@ -44,11 +49,11 @@
             <div class="layui-inline">
                 <label class="layui-form-label">优先级</label>
                 <div class="layui-input-inline">
-                    <select name="quiz" lay-verify="required">
+                    <select name="priority" lay-verify="required">
                         <option value="">请选择</option>
-                        <option value="低">低</option>
-                        <option value="中">中</option>
-                          <option value="高">高</option>
+                        <option value="0">低</option>
+                        <option value="1">中</option>
+                          <option value="2">高</option>
                     </select>
                 </div>
             </div>
@@ -61,7 +66,7 @@
             <div class="layui-inline">
                 <label class="layui-form-label">人数</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="phone" lay-verify="phone" autocomplete="off" class="layui-input">
+                    <input type="text" name="number" lay-verify="required"  class="layui-input">
                 </div>
             </div>
 
@@ -72,7 +77,7 @@
             <div class="layui-inline">
                 <label class="layui-form-label">工作地点</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                    <input type="text" name="site"   class="layui-input">
                 </div>
             </div>
 
@@ -83,7 +88,7 @@
            <div class="layui-inline">
                       <label class="layui-form-label">工作经验</label>
                 <div class="layui-input-inline">
-                    <select name="">
+                    <select name="experience" lay-verify="required">
                         <option value="">请选择</option>
                         <option value="不限">不限</option>
                         <option value="1-3年">1-3年</option>
@@ -101,7 +106,7 @@
            <div class="layui-inline">
                 <label class="layui-form-label">到岗日期</label>
                 <div class="layui-input-block">
-                    <input type="text" name="date" id="date" lay-verify="date" placeholder="年-月-日" autocomplete="off" class="layui-input" onclick="layui.laydate({elem: this})">
+                    <input type="text" name="arrivaldate" id="date" lay-verify="date" placeholder="年-月-日" autocomplete="off" class="layui-input" onclick="layui.laydate({elem: this})">
                 </div>
             </div>
 
@@ -113,7 +118,7 @@
             <div class="layui-inline">
                 <label class="layui-form-label">学历要求</label>
                 <div class="layui-input-inline">
-                    <select name="">
+                    <select name="education" lay-verify="required">
                         <option value="">请选择</option>
                         <option value="不限">不限</option>
                         <option value="应届毕业生">应届毕业生</option>
@@ -135,7 +140,7 @@
                 <label class="layui-form-label">年龄要求</label>
                 
                 <div class="layui-input-inline">
-                      <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                      <input type="text" name="age"  autocomplete="off" class="layui-input">
                 </div>
             </div>
 
@@ -164,11 +169,11 @@
             <div class="layui-inline">
                 <label class="layui-form-label">薪资待遇</label>
                 <div class="layui-input-inline" style="width: 100px;">
-                    <input type="text" name="price_min" placeholder="￥" autocomplete="off" class="layui-input">
+                    <input type="text" name="minpay" placeholder="￥" autocomplete="off" class="layui-input">
                 </div>
                 <div class="layui-form-mid">-</div>
                 <div class="layui-input-inline" style="width: 100px;">
-                    <input type="text" name="price_max" placeholder="￥" autocomplete="off" class="layui-input">
+                    <input type="text" name="maxpay" placeholder="￥" autocomplete="off" class="layui-input">
                 </div>
             </div>
 
@@ -178,7 +183,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">工作性质</label>
             <div class="layui-input-inline">
-                    <select name="sex">
+                    <select name="jobnature">
                          <option value="">请选择</option>
                          <option value="全职">全职</option>
                          <option value="兼职">兼职</option>
@@ -191,10 +196,9 @@
          <div class="layui-form-item layui-form-text">
              <label class="layui-form-label">*岗位要求</label>
              <div class="layui-input-block">
-                 <textarea name="desc" placeholder="请输入内容" class="layui-textarea"></textarea>
+                 <textarea name="requirements" lay-verify="required" placeholder="请输入内容" class="layui-textarea"></textarea>
              </div>
         </div>
-
 
 
         <div class="layui-form-item">
@@ -208,11 +212,13 @@
 
 <script type="text/javascript" src="PUBLIC/plugins/layui/layui.js"></script>
 <script>
-       layui.config({
-                base: '/Public/plugins/layui/modules/'
-            });
-    
-      layui.use(['form', 'layedit', 'laydate'], function() {
+
+    layui.config({
+        base: '/Public/plugins/layui/modules/'
+    });
+
+
+    layui.use(['form', 'layedit', 'laydate'], function(){
         var form = layui.form(),
                 $ = layui.jquery,
                 layer = layui.layer,
@@ -220,25 +226,7 @@
                 laydate = layui.laydate;
 
 
-      $('#job').click(function(){
-          
-             alert(11111);
-          
-      });
-                
-                
-                
-                
-        
 
-      
-  
-      
-      
-      
-      
-     
-     
         
     });
 </script>

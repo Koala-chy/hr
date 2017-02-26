@@ -3,7 +3,7 @@
 
     <head>
         <meta charset="UTF-8">
-        <title>人才库</title>
+        <title>招聘需求列表</title>
         <link rel="stylesheet" href="PUBLIC/plugins/layui/css/layui.css" media="all" />
         <link rel="stylesheet" href="CSS_PATH/global.css" media="all">
         <link rel="stylesheet" href="PUBLIC/plugins/font-awesome/css/font-awesome.min.css">
@@ -42,24 +42,37 @@
                             </tr>
                         </thead>
                         <tbody>
+                          <volist name="data" id="row">
                             <tr>
-                                <td>1</td>
-                                <td>技术部</td>
-                                <td>高</td>
-                                <td>2017/02/26</td>
-                                <td>1</td>
+                                <td>{$row.id}</td>
+                                <td>{$row.position}</td>
+                                <td>
+                                    <switch name="row.priority">
+                                        <case value="0">低</case>
+                                        <case value="1">中</case>
+                                        <case value="2">高</case>
+                                        <default />低
+                                    </switch>
+                                </td>
+                                <td>{$row.createtime|date='Y-m-d',###}</td>
+                                <td>{$row.number}</td>
                                 <td>5</td>
                                 <td>2</td>
                                 <td>3</td>
                                 <td>0</td>
-                                <td>招聘中</td>
                                 <td>
-                                    <a href="" target="_blank" class="layui-btn layui-btn-normal layui-btn-mini">查看</a>
+                                    <switch name="row.type">
+                                        <case value="0">招聘中</case>
+                                        <case value="1">招聘完成</case>
+                                    </switch>
+                                </td>
+                                <td>
+                                    <a href="__URL__/look_recruit/id/{$row.id}"  class="layui-btn layui-btn-normal layui-btn-mini">查看</a>
                                     <a href="" class="layui-btn layui-btn-mini">修改</a>
                                     <a href="" data-id="1" data-opt="del" class="layui-btn layui-btn-danger layui-btn-mini">删除</a>
                                 </td>
                             </tr>
-
+                          </volist>
                         </tbody>
                     </table>
 
