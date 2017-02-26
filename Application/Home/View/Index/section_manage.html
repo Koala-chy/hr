@@ -19,17 +19,20 @@
                     <i class="layui-icon">&#xe608;</i> 新增部门
                 </a>
 
-                <span> 
-                    <form action="" method="post" style="display: inline-block" class="layui-form">
+
+                    <form action="__URL__/section_manage" method="get" style="display: inline-block" class="layui-form">
                           
-                        <div class="layui-form-item">
+                        <div class="layui-form-item" style="margin-bottom: -14px;padding-left: 17px">
                             <div class="layui-input-inline">
-                                <input type="text" autocomplete="off" class="layui-input">
+                                <input name="search" value="{$search}" type="text" placeholder="搜索部门" autocomplete="off" class="layui-input" style="height: 35px;border-radius: 10px">
+                            </div>
+
+                            <div class="layui-input-inline">
+                                <button style="height: 35px;border-radius: 10px" class="layui-btn" lay-submit="" lay-filter="demo1">搜索</button>
                             </div>
                         </div>
-                        
                     </form>
-                </span>
+
             </blockquote>
             <div class="pages">{$page}</div>
 

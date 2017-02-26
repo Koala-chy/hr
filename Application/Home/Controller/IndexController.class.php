@@ -21,10 +21,21 @@ class IndexController extends Controller {
      public function section_manage(){
 
          $model = M('H_section');
-        
-         $page =  getPage($model, 'pid=0');
-         
-         $data = $model->field('id,pid,job')->where('pid = 0')->select();
+
+         $search = I('get.search');
+
+//         var_dump($search);
+
+         $arr['job']  = array('like', "%$search%");
+         $arr['_logic'] = 'and';
+         $where['_complex'] = $arr;
+         $where['pid'] = array('eq',0);
+
+         $page =  getPage($model, $where);
+
+         $data = $model->field('id,pid,job')->where($where)->select();
+
+//         var_dump($model ->getLastSql());
 
          $Job_data = $model -> field('id,pid,job') ->where('pid !=0') ->select();
 
@@ -32,6 +43,7 @@ class IndexController extends Controller {
 //         var_dump($data);
          $this -> Job_data =$Job_data;
          $this ->data =$data;
+         $this ->search =$search;
          $this -> page =  $page ->show();
          $this->display();
          
