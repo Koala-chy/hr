@@ -14,7 +14,7 @@
         <div class="admin-main">
 
             <blockquote class="layui-elem-quote">
-                <a href="__URL__/add_resume.html" class="layui-btn layui-btn-small" id="add">
+                <a href="__URL__/add_need.html" class="layui-btn layui-btn-small" id="add">
                     <i class="layui-icon">&#xe608;</i> 新增需求
                 </a>
 
@@ -29,12 +29,14 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>姓名</th>
-                                <th>学历</th>
-                                <th>手机</th>
-                                <th>应聘职位</th>
-                                <th>期望职位</th>
-                                <th>创建时间</th>
+                                <th>招聘职位</th>
+                                <th>优先级</th>
+                                <th>发布时间</th>
+                                <th>招聘数</th>
+                                <th>邀约数</th>
+                                <th>面试合格数</th>
+                                <th>面试不合格数</th>
+                                <th>录用数</th>
                                 <th>状态</th>
                                 <th>操作</th>
                             </tr>
@@ -42,17 +44,19 @@
                         <tbody>
                             <tr>
                                 <td>1</td>
-                                <td>张三</td>
-                                <td>一本</td>
-                                <td>15277496435</td>
-                                <td>技术</td>
-                                <td>技术</td>
-                                <td>2016-11-16 11:50</td>
-                                <td>已面试</td>
+                                <td>技术部</td>
+                                <td>高</td>
+                                <td>2017/02/26</td>
+                                <td>1</td>
+                                <td>5</td>
+                                <td>2</td>
+                                <td>3</td>
+                                <td>0</td>
+                                <td>招聘中</td>
                                 <td>
-                                    <a href="/detail-1" target="_blank" class="layui-btn layui-btn-normal layui-btn-mini">预览</a>
-                                    <a href="/manage/article_edit_1" class="layui-btn layui-btn-mini">编辑</a>
-                                    <a href="javascript:;" data-id="1" data-opt="del" class="layui-btn layui-btn-danger layui-btn-mini">删除</a>
+                                    <a href="" target="_blank" class="layui-btn layui-btn-normal layui-btn-mini">查看</a>
+                                    <a href="" class="layui-btn layui-btn-mini">修改</a>
+                                    <a href="" data-id="1" data-opt="del" class="layui-btn layui-btn-danger layui-btn-mini">删除</a>
                                 </td>
                             </tr>
 
@@ -80,21 +84,7 @@
                     checkboxClass: 'icheckbox_flat-green'
                 });
 
-                //page
-                laypage({
-                    cont: 'page',
-                    pages: 25 //总页数
-                    ,
-                    groups: 5 //连续显示分页数
-                    ,
-                    jump: function (obj, first) {
-                        //得到了当前页，用于向服务端请求对应数据
-                        var curr = obj.curr;
-                        if (!first) {
-                            //layer.msg('第 '+ obj.curr +' 页');
-                        }
-                    }
-                });
+           
 
                 $('#search').on('click', function () {
                     
