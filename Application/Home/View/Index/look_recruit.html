@@ -165,11 +165,19 @@
             </div>
         </div>
 
-
+      
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <a class="layui-btn" lay-submit="" lay-filter="demo1">招聘完成</a>
-                <a type="reset" class="layui-btn layui-btn-primary">修改</a>
+                
+                  <switch name="data.type"> 
+                  <case value="0">
+                                  <a  href="{:U('Recruit/save_type?id='.$data['id'].'&type=1')}"  class="layui-btn" >招聘完成</a>
+                  </case> 
+                            <case value="1">
+                                   <a  href="{:U('Recruit/save_type?id='.$data['id'].'&type=0')}"  class="layui-btn" >继续招聘</a>
+                            </case>
+               </switch>
+               <a href="{$Think.server.http_referer}"  class="layui-btn layui-btn-primary">返回</a>
             </div>
         </div>
     </form>

@@ -49,7 +49,7 @@
                             </tr>
                         </thead>
                         <tbody>
-
+                   <notempty name='data'>
                         <volist name="data" id="row">
                             <if condition="$row['pid'] eq 0">
                                 <tr>
@@ -74,12 +74,14 @@
                                     <td>
                                         <a href="__URL__/add_job/id/{$row.id}"  class="layui-btn layui-btn-normal layui-btn-mini">添加岗位</a>
                                         <a href="{:U('Index/edit_resume/id/'.$row['id'])}" class="layui-btn layui-btn-mini">编辑</a>
-                                        <a href="{:U('Recruit/del_section/id/'.$row['id'])}" data-id="1" data-opt="del" class="layui-btn layui-btn-danger layui-btn-mini">删除</a>
+                                        <a href="{:U('Recruit/del_section/id/'.$row['id'])}" data-id="1" onclick="return confirm('确定将此记录删除?')" data-opt="del" class="layui-btn layui-btn-danger layui-btn-mini">删除</a>
                                     </td>
                                 </tr>
                             </if>
                         </volist>
-
+                             <else/>
+                                <td colspan="10"  style='text-align: center'>aoH! &nbsp;&nbsp;暂时没有内容</td>
+                   </notempty>
                         </tbody>
 
                     </table>

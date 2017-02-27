@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>新建需求</title>
+    <title>修改需求</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -17,23 +17,25 @@
 <body>
 <div style="margin: 15px;">
     <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-        <legend>新建需求</legend>
+        <legend>修改需求</legend>
     </fieldset>
 
-    <form class="layui-form" action="{:U('Recruit/Ad_need')}" method="post">
-
+    <form class="layui-form" action="{:U('Recruit/save_need')}" method="post">
+         
+        <input type="hidden" name='id' value="{$data_1.id}">
+        
         <div class="layui-form-item">
             <label class="layui-form-label"><i style="color: red">★</i>&nbsp;职位名称</label>
             <div class="layui-inline">
            
                <select name="position" id="job" lay-filter="job" lay-verify="required">
                    <option value="">请选择</option>
-                  <volist name="data" id="row">
+                  <volist name="data_2" id="row">
                       <if condition="$row['pid'] eq 0">
                    <optgroup label="{$row['job']}">
-                       <volist name="data" id="v">
+                       <volist name="data_2" id="v">
                            <if condition="$row['id'] eq $v['pid']">
-                       <option value="{$v.job}">{$v.job}</option>
+                       <option  value="{$v.job}"     {:$data_1['position'] == $v['job'] ?"selected":""}>{$v.job}</option>
                            </if>
                        </volist>
                    </optgroup>
@@ -51,9 +53,9 @@
                 <div class="layui-input-inline">
                     <select name="priority" lay-verify="required">
                         <option value="">请选择</option>
-                        <option value="0">低</option>
-                        <option value="1">中</option>
-                          <option value="2">高</option>
+                        <option   value="0" {:$data_1['priority'] =="0"?"selected":""}>低</option>
+                        <option  value="1"  {:$data_1['priority'] =="1"?"selected":""}>中</option> 
+                          <option value="2" {:$data_1['priority'] =="2"?"selected":""}>高</option>
                     </select>
                 </div>
             </div>
@@ -66,7 +68,7 @@
             <div class="layui-inline">
                 <label class="layui-form-label"><i style="color: red">★</i>&nbsp;人数</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="number" lay-verify="required"  class="layui-input">
+                    <input type="text" name="number" lay-verify="required"  class="layui-input" value="{$data_1.number}">
                 </div>
             </div>
 
@@ -77,7 +79,7 @@
             <div class="layui-inline">
                 <label class="layui-form-label">工作地点</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="site"   class="layui-input">
+                    <input type="text" name="site"   class="layui-input" value="{$data_1.site}">
                 </div>
             </div>
 
@@ -90,11 +92,11 @@
                 <div class="layui-input-inline">
                     <select name="experience" lay-verify="required">
                         <option value="">请选择</option>
-                        <option value="不限">不限</option>
-                        <option value="1-3年">1-3年</option>
-                        <option value="3-5年">3-5年</option>
-                        <option value="5-10年">5-10年</option>
-                        <option value="10年以上">10年以上</option>
+                        <option value="不限" {:$data_1['experience'] =="不限"?"selected":""}>不限</option>
+                        <option value="1-3年" {:$data_1['experience'] =="1-3年"?"selected":""}>1-3年</option>
+                        <option value="3-5年" {:$data_1['experience'] =="3-5年"?"selected":""}>3-5年</option>
+                        <option value="5-10年" {:$data_1['experience'] =="5-10年"?"selected":""}>5-10年</option>
+                        <option value="10年以上" {:$data_1['experience'] =="10年以上"?"selected":""}>10年以上</option>
                     </select>
                 </div>
             </div>
@@ -106,11 +108,11 @@
            <div class="layui-inline">
                 <label class="layui-form-label"><i style="color: red">★</i>&nbsp;到岗日期</label>
                 <div class="layui-input-block">
-                    <input type="text" name="arrivaldate" id="date" lay-verify="date" placeholder="年-月-日" autocomplete="off" class="layui-input" onclick="layui.laydate({elem: this})">
+                    <input type="text" value="{$data_1.arrivaldate|date='Y-m-d',###}" name="arrivaldate" id="date" lay-verify="date" placeholder="年-月-日" autocomplete="off" class="layui-input" onclick="layui.laydate({elem: this})">
                 </div>
             </div>
 
-         </div>>
+         </div>
 
    
         <div class="layui-form-item">
@@ -120,14 +122,14 @@
                 <div class="layui-input-inline">
                     <select name="education" lay-verify="required">
                         <option value="">请选择</option>
-                        <option value="不限">不限</option>
-                        <option value="应届毕业生">应届毕业生</option>
-                        <option value="初中及以上">初中及以上</option>
-                        <option value="高中及以上">高中及以上</option>
-                        <option value="大专及以上">大专及以上</option>
-                        <option value="本科及以上">本科及以上</option>
-                        <option value="硕士及以上">硕士及以上</option>
-                        <option value="博士及以上">博士及以上</option>        
+                        <option value="不限" {:$data_1['education'] =="不限"?"selected":""}>不限</option>
+                        <option value="应届毕业生" {:$data_1['education'] =="应届毕业生"?"selected":""}>应届毕业生</option>
+                        <option value="初中及以上" {:$data_1['education'] =="初中及以上"?"selected":""}>初中及以上</option>
+                        <option value="高中及以上" {:$data_1['education'] =="高中及以上"?"selected":""}>高中及以上</option>
+                        <option value="大专及以上" {:$data_1['education'] =="大专及以上"?"selected":""}>大专及以上</option>
+                        <option value="本科及以上"  {:$data_1['education'] =="本科及以上"?"selected":""}>本科及以上</option>
+                        <option value="硕士及以上" {:$data_1['education'] =="硕士及以上"?"selected":""}>硕士及以上</option>
+                        <option value="博士及以上" {:$data_1['education'] =="博士及以上"?"selected":""}>博士及以上</option>        
                     </select>
                 </div>
             </div>
@@ -140,7 +142,7 @@
                 <label class="layui-form-label">年龄要求</label>
                 
                 <div class="layui-input-inline">
-                      <input type="text" name="age"  autocomplete="off" class="layui-input">
+                    <input type="text" name="age" value="{$data_1.age}"  autocomplete="off" class="layui-input">
                 </div>
             </div>
 
@@ -155,9 +157,9 @@
                 <div class="layui-input-inline">
                     <select name="sex">
                         <option value="">请选择</option>
-                        <option value="不限">不限</option>
-                         <option value="男">男</option>
-                          <option value="女">女</option>
+                        <option value="不限"  {:$data_1['sex'] =="不限"?"selected":""}>不限</option>
+                         <option value="男"  {:$data_1['sex'] =="男"?"selected":""}>男</option>
+                          <option value="女" {:$data_1['sex'] =="女"?"selected":""}>女</option>
                     </select>
                 </div>
             </div>
@@ -169,11 +171,11 @@
             <div class="layui-inline">
                 <label class="layui-form-label">薪资待遇</label>
                 <div class="layui-input-inline" style="width: 100px;">
-                    <input type="text" name="minpay" placeholder="￥" autocomplete="off" class="layui-input">
+                    <input type="text" name="minpay" value="{$data_1.minpay}" placeholder="￥" autocomplete="off" class="layui-input">
                 </div>
                 <div class="layui-form-mid">-</div>
                 <div class="layui-input-inline" style="width: 100px;">
-                    <input type="text" name="maxpay" placeholder="￥" autocomplete="off" class="layui-input">
+                    <input type="text" name="maxpay" value="{$data_1.maxpay}" placeholder="￥" autocomplete="off" class="layui-input">
                 </div>
             </div>
 
@@ -185,9 +187,9 @@
             <div class="layui-input-inline">
                     <select name="jobnature">
                          <option value="">请选择</option>
-                         <option value="全职">全职</option>
-                         <option value="兼职">兼职</option>
-                         <option value="实习">实习</option>
+                         <option value="全职" {:$data_1['jobnature'] =="全职"?"selected":""}>全职</option>
+                         <option value="兼职"  {:$data_1['jobnature'] =="兼职"?"selected":""}>兼职</option>
+                         <option value="实习"   {:$data_1['jobnature'] =="实习"?"selected":""}>实习</option>
                     </select>
                 </div>
         </div>
@@ -196,7 +198,7 @@
          <div class="layui-form-item layui-form-text">
              <label class="layui-form-label"><i style="color: red">★</i>&nbsp;岗位要求</label>
              <div class="layui-input-block">
-                 <textarea name="requirements" lay-verify="required" placeholder="请输入内容" class="layui-textarea"></textarea>
+                 <textarea name="requirements" lay-verify="required" placeholder="请输入内容" class="layui-textarea">{$data_1.requirements}</textarea>
              </div>
         </div>
 
@@ -204,7 +206,7 @@
         <div class="layui-form-item">
             <div class="layui-input-block">
                 <button class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
-                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                <a href='{$Think.server.http_referer}'  class="layui-btn layui-btn-primary">返回</a>
             </div>
         </div>
     </form>

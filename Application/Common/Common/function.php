@@ -10,11 +10,11 @@
 //分页函数
 /**
  * @param type $model
- * @param type $where
- * @param type $p
- * @param type $pagenumb
- * @param type $rollpage
- * @return \Common\Util\MyPage
+ * @param type $where  条件
+ * @param type $p    页码初始值P
+ * @param type $pagenumb  页码
+ * @param type $rollpage   显示几条数据
+ * @return \Common\Util\MyPage   调用分页类
  * @author 常 弘扬 <changhongyang@123.com.cn>
  */
 function  getPage(&$model,$where,$p='p',$pagenumb=5,$rollpage=5){

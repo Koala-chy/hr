@@ -84,7 +84,9 @@ class RecruitController extends Controller{
     
     public function edit_job(){
         
-         $id = I('post.id');
+        if(IS_POST){
+            
+        $id = I('post.id');
         
          $val = I('post.val');  
          
@@ -108,8 +110,10 @@ class RecruitController extends Controller{
             
                $this ->ajaxReturn(0);
         }
-        
-    }
+                    
+     }
+              
+}
 
     
     /**
@@ -145,6 +149,8 @@ class RecruitController extends Controller{
     
     public function save_resume(){
         
+        if(IS_POST){
+            
              $id = I('post.id');
               
              $job = I('post.job');
@@ -163,7 +169,9 @@ class RecruitController extends Controller{
                  
                  $this->error('修改失败');
              }
- 
+           
+        }
+        
     }
 
 
@@ -173,39 +181,113 @@ class RecruitController extends Controller{
      */
     
     public function Ad_need(){
-
-       $model = M('H_requirements');
+        
+         if(IS_POST){
+            
+                 $model = M('H_requirements');
 
 //       var_dump($model);
 
-       $data = $model -> create();
-       $model ->arrivaldate =strtotime($model->arrivaldate);
-       $model ->createtime =time();
+                   $data = $model -> create();
+                  $model ->arrivaldate =strtotime($model->arrivaldate);
+                  $model ->createtime =time();
 
-       $error = $model ->getError();
+                  $error = $model ->getError();
 
-       if(!empty($data)){
+                    if(!empty($data)){
 
-           $res = $model ->add();
+                            $res = $model ->add();
 
-           if($res){
+                             if($res){
 
-               $this ->success('添加成功','/Index/recruit');
+                               $this ->success('添加成功','/Index/recruit');
 
-           }else{
+                           }else{
 
-               $this ->error($error);
+                                 $this ->error($error);
+                       }
+
+                    }
            }
-
-       }
-
-
+        
     }
 
-
-
     
-  
+  /**
+   * 修改招聘状态
+   */
+    public function  save_type(){
+        
+        $model = M('H_requirements');
+        
+         $id = I('get.id');
+        
+         $type = I('get.type');
+        
+         $where['id'] = $id;
+        
+         $data['type'] = $type;
+         
+         $res =$model ->where($where) ->save($data);
+         
+          if($res){
+                  
+                 $this ->success('状态修改成功','/Index/recruit');
+           }
+        
+        
+    }
+    
+    /**
+     * 修改招聘信息
+     */
+    public function save_need(){
+         
+          $model = M('H_requirements');
+          
+          $model ->create();
+         
+          $where['id'] =$model ->id;
+          
+          $model ->arrivaldate =  strtotime($model ->arrivaldate);
+          
+          $model->createtime = time();
+          
+         $res = $model ->where($where)  ->save();
+        
+         if($res){
+             
+                 $this ->success('修改成功','/Index/recruit');
+         }  else {
+             
+                $this ->error($model ->getError());
+         }
+         
+    }
+    
+    
+    public function del_need(){
+        
+        $model = M('H_requirements');
+        
+        $where['id'] = I('get.id');
+        
+        $res =$model ->where($where)->delete();
+        
+        if($res){
+            
+              $this ->success('删除成功','/Index/recruit');
+        }  else {
+            
+            $this ->error('删除失败');
+           
+        }
+        
+    }
+    
+    
+    
+    
 
 
 }

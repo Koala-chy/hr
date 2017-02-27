@@ -9,11 +9,58 @@ class IndexController extends Controller {
          $this -> display();
 
      }
-
-
-  //部门及岗位管理
-
      
+     
+     
+     /**
+      * 清除缓存
+      * @param type $R
+      * @return type
+      */
+    private function _deleteDir($R){
+                                                     //打开一个目录句柄
+        $handle = opendir($R);
+                                                   //读取目录,直到没有目录为止
+        while(($item = readdir($handle)) !== false){
+                                          //跳过. ..两个特殊目录
+            if($item != '.' and $item != '..'){
+                                        //如果遍历到的是目录
+                if(is_dir($R.'/'.$item)){
+                                     //继续向目录里面遍历
+                    $this->_deleteDir($R.'/'.$item);
+                }else{
+                                 //如果不是目录，删除该文件
+                    if(!unlink($R.'/'.$item))
+                        die('error!');
+                }
+            }
+        }
+        //关闭目录
+        closedir( $handle );
+        //删除空的目录
+        return rmdir($R);
+    }
+
+    //清除缓存--删除runtime文件夹
+    public function delRun () {
+        //获取url的第三项值
+                 $get =I('get.url');
+        //如果目录是 delRun
+            if($get == 'delRun'){
+            //获取当前的缓存目录
+                      $R =RUNTIME_PATH;
+            //执行删除函数
+                       if($this->_deleteDir($R)){
+
+                       $this -> ajaxReturn(1);
+            }
+
+        }
+    }
+    
+    
+    
+  //部门及岗位管理
      /**
       * 调取部门及岗位管理视图页面数据
       * @author 常 弘扬 <changhongyang@123.com.cn>
@@ -33,7 +80,7 @@ class IndexController extends Controller {
 
          $page =  getPage($model, $where);
 
-         $data = $model->field('id,pid,job')->where($where)->select();
+         $data = $model->field('id,pid,job')->where($where)->order(' id desc')->select();
 
 //         var_dump($model ->getLastSql());
 
@@ -116,13 +163,22 @@ class IndexController extends Controller {
      */
     public function recruit(){
 
-       $model = M('H_requirements');
-
-       $data = $model ->field('id,position,priority,createtime,number,type')->select();
+        $model = M('H_requirements');
+        
+         $search = I('get.search');
+         
+     
+         $where['position']  = array('like', "%$search%");
+      
+        $page =  getPage($model, $where);
+       
+       $data = $model ->field('id,position,priority,createtime,number,type')->where($where)->order(' createtime desc')->select();
 
 //       var_dump($data);
-
-       $this ->data =$data;
+   
+      $this ->search =$search;
+      $this ->data =$data;
+      $this -> page =  $page ->show();
        $this -> display();
     }
 
@@ -147,6 +203,29 @@ class IndexController extends Controller {
         $this -> display();
 
     }
+    
+    
+    public function alert_need(){
+        
+          $model_1 = M('H_requirements');
+          
+          $model_2 = M('H_section');
+          
+          $where['id'] = I('get.id');
+        
+          $data_1 =$model_1 ->where($where)->find();
+          
+          $data_2 =$model_2 -> field('id,pid,job')->select();
+        
+//          var_dump($data_1);
+        
+           $this ->  data_1 =$data_1;
+            $this -> data_2 =$data_2;
+            $this ->display();
+        
+    }
+
+
 
 
     /**

@@ -8,20 +8,33 @@
         <link rel="stylesheet" href="CSS_PATH/global.css" media="all">
         <link rel="stylesheet" href="PUBLIC/plugins/font-awesome/css/font-awesome.min.css">
         <link rel="stylesheet" href="CSS_PATH/table.css" />
+        <link rel="stylesheet" href="CSS_PATH/page.css" />
     </head>
 
     <body>
         <div class="admin-main">
 
             <blockquote class="layui-elem-quote">
-                <a href="__URL__/add_need.html" class="layui-btn layui-btn-small" id="add">
+                <a href="__URL__/add_need" class="layui-btn layui-btn-small" id="add">
                     <i class="layui-icon">&#xe608;</i> 新增需求
                 </a>
 
-                <a href="javascript:;" class="layui-btn layui-btn-small" id="search">
-                    <i class="layui-icon">&#xe615;</i> 搜索
-                </a>
+                 <form action="__URL__/recruit" method="get" style="display: inline-block" class="layui-form">
+                          
+                        <div class="layui-form-item" style="margin-bottom: -14px;padding-left: 17px">
+                            <div class="layui-input-inline">
+                                <input name="search" value="{$search}" type="text" placeholder="搜索职位" autocomplete="off" class="layui-input" style="height: 35px;border-radius: 10px">
+                            </div>
+
+                            <div class="layui-input-inline">
+                                <button style="height: 35px;border-radius: 10px" class="layui-btn" lay-submit="" lay-filter="demo1">搜索</button>
+                            </div>
+                        </div>
+                    </form>
             </blockquote>
+            
+            <div class="pages">{$page}</div>
+            
             <fieldset class="layui-elem-field">
                 <legend>需求列表</legend>
                 <div class="layui-field-box">
@@ -36,13 +49,14 @@
                                 <th>邀约数</th>
                                 <th>面试合格数</th>
                                 <th>面试不合格数</th>
-                                <th>录用数</th>
                                 <th>状态</th>
                                 <th>操作</th>
                             </tr>
                         </thead>
                         <tbody>
-                          <volist name="data" id="row">
+                            
+                      <notempty name='data'>      
+                          <volist name="data" id="row" >
                             <tr>
                                 <td>{$row.id}</td>
                                 <td>{$row.position}</td>
@@ -59,7 +73,6 @@
                                 <td>5</td>
                                 <td>2</td>
                                 <td>3</td>
-                                <td>0</td>
                                 <td>
                                     <switch name="row.type">
                                         <case value="0">招聘中</case>
@@ -68,11 +81,14 @@
                                 </td>
                                 <td>
                                     <a href="__URL__/look_recruit/id/{$row.id}"  class="layui-btn layui-btn-normal layui-btn-mini">查看</a>
-                                    <a href="" class="layui-btn layui-btn-mini">修改</a>
-                                    <a href="" data-id="1" data-opt="del" class="layui-btn layui-btn-danger layui-btn-mini">删除</a>
+                                    <a href="__URL__/alert_need/id/{$row.id}" class="layui-btn layui-btn-mini">修改</a>
+                                    <a href="{:U('Recruit/del_need/id/'.$row['id'])}"  onclick="return confirm('确定将此记录删除?')" data-id="1" data-opt="del" class="layui-btn layui-btn-danger layui-btn-mini">删除</a>
                                 </td>
                             </tr>
                           </volist>
+                          <else/>
+                          <td colspan="10"  style='text-align: center'>aoH! &nbsp;&nbsp;暂时没有内容</td>
+                      </notempty>
                         </tbody>
                     </table>
 
