@@ -23,7 +23,7 @@
     <form class="layui-form" action="{:U('Recruit/Ad_need')}" method="post">
 
         <div class="layui-form-item">
-            <label class="layui-form-label"><i style="color: red">★</i>&nbsp;职位名称</label>
+            <label class="layui-form-label"><i style="color: red;font-size: 18px">*</i>&nbsp;职位名称</label>
             <div class="layui-inline">
            
                <select name="position" id="job" lay-filter="job" lay-verify="required">
@@ -47,7 +47,7 @@
         
 
             <div class="layui-inline">
-                <label class="layui-form-label"><i style="color: red">★</i>&nbsp;优先级</label>
+                <label class="layui-form-label"><i style="color: red;font-size: 18px">*</i>&nbsp;优先级</label>
                 <div class="layui-input-inline">
                     <select name="priority" lay-verify="required">
                         <option value="">请选择</option>
@@ -64,7 +64,7 @@
         <div class="layui-form-item">
 
             <div class="layui-inline">
-                <label class="layui-form-label"><i style="color: red">★</i>&nbsp;人数</label>
+                <label class="layui-form-label"><i style="color: red;font-size: 18px">*</i>&nbsp;人数</label>
                 <div class="layui-input-inline">
                     <input type="text" name="number" lay-verify="required"  class="layui-input">
                 </div>
@@ -86,7 +86,7 @@
         <div class="layui-form-item">
             
            <div class="layui-inline">
-                      <label class="layui-form-label"><i style="color: red">★</i>&nbsp;工作经验</label>
+                      <label class="layui-form-label"><i style="color: red;font-size: 18px">*</i>&nbsp;工作经验</label>
                 <div class="layui-input-inline">
                     <select name="experience" lay-verify="required">
                         <option value="">请选择</option>
@@ -104,7 +104,7 @@
             <div class="layui-inline"></div>
 
            <div class="layui-inline">
-                <label class="layui-form-label"><i style="color: red">★</i>&nbsp;到岗日期</label>
+                <label class="layui-form-label"><i style="color: red;font-size: 18px">*</i>&nbsp;到岗日期</label>
                 <div class="layui-input-block">
                     <input type="text" name="arrivaldate" id="date" lay-verify="date" placeholder="年-月-日" autocomplete="off" class="layui-input" onclick="layui.laydate({elem: this})">
                 </div>
@@ -116,7 +116,7 @@
         <div class="layui-form-item">
 
             <div class="layui-inline">
-                <label class="layui-form-label"><i style="color: red">★</i>&nbsp;学历要求</label>
+                <label class="layui-form-label"><i style="color: red;font-size: 18px">*</i>&nbsp;学历要求</label>
                 <div class="layui-input-inline">
                     <select name="education" lay-verify="required">
                         <option value="">请选择</option>
@@ -194,7 +194,7 @@
          
          
          <div class="layui-form-item layui-form-text">
-             <label class="layui-form-label"><i style="color: red">★</i>&nbsp;岗位要求</label>
+             <label class="layui-form-label"><i style="color: red;font-size: 18px">*</i>&nbsp;岗位要求</label>
              <div class="layui-input-block">
                  <textarea name="requirements" lay-verify="required" placeholder="请输入内容" class="layui-textarea"></textarea>
              </div>

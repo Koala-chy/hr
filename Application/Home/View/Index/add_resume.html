@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="utf-8">
     <title>新增简历</title>
@@ -10,9 +9,9 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
+
     <link rel="stylesheet" href="PUBLIC/plugins/layui/css/layui.css" media="all" />
     <link rel="stylesheet" href="PUBLIC/plugins/font-awesome/css/font-awesome.min.css">
-    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
 </head>
 <body>
 <div style="margin: 15px;">
@@ -20,12 +19,12 @@
         <legend>新增简历</legend>
     </fieldset>
 
-    <form class="layui-form" action="" name="theForm">
+    <form class="layui-form" method='post' enctype="multipart/form-data" action="__URL__/insert" name="theForm">
 
         <div class="layui-form-item">
 
             <div class="layui-inline">
-               <label class="layui-form-label">*姓名</label>
+               <label class="layui-form-label"><i style="color: red;font-size: 18px">*</i> 姓名</label>
                   <div class="layui-input-inline">
                   <input type="tel" name="name" lay-verify="required" autocomplete="off" class="layui-input">
                </div>
@@ -36,12 +35,12 @@
             <div class="layui-inline"></div>
 
             <div class="layui-inline">
-                <label class="layui-form-label">*性别</label>
+                <label class="layui-form-label"><i style="color: red;font-size: 18px">*</i> 性别</label>
                 <div class="layui-input-inline">
-                    <select name="quiz" lay-verify="required">
+                    <select name="sex" lay-verify="required">
                         <option value="">请选择</option>
-                        <option value="男">男</option>
-                        <option value="女">女</option>
+                        <option value="1">男</option>
+                        <option value="0">女</option>
                     </select>
                 </div>
             </div>
@@ -52,9 +51,9 @@
         <div class="layui-form-item">
 
             <div class="layui-inline">
-                <label class="layui-form-label">*手机号</label>
+                <label class="layui-form-label"><i style="color: red;font-size: 18px">*</i> 手机号</label>
                 <div class="layui-input-inline">
-                    <input type="tel" name="phone" lay-verify="phone" autocomplete="off" class="layui-input">
+                    <input type="tel" name="telphone" lay-verify="phone" autocomplete="off" class="layui-input">
                 </div>
             </div>
 
@@ -63,7 +62,7 @@
             <div class="layui-inline"></div>
 
             <div class="layui-inline">
-                <label class="layui-form-label">*邮箱</label>
+                <label class="layui-form-label"><i style="color: red;font-size: 18px">*</i> 邮箱</label>
                 <div class="layui-input-inline">
                     <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
                 </div>
@@ -74,10 +73,10 @@
         <div class="layui-form-item">
 
             <div class="layui-inline">
-                <label class="layui-form-label">应聘岗位</label>
+                <label class="layui-form-label"><i style="color: red;font-size: 18px">*</i> 应聘岗位</label>
 
                 <div class="layui-input-inline">
-                    <select name="section" lay-verify="required" id="section"  lay-filter="section">
+                    <select name="reals" lay-verify="required" id="reals"  lay-filter="reals">
                         
                         <option value=""></option>                       
                          <foreach name='data' item='v'>
@@ -96,25 +95,18 @@
             </div>
 
         </div>
-
-    
-   
         <div class="layui-form-item">
 
             <div class="layui-inline">
                 <label class="layui-form-label">最高学历</label>
                 <div class="layui-input-inline">
-                    <select name="quiz">
+                    <select name="eduLevel" id="eduLevel">
                         <option value="">请选择</option>
-                        <option value="">博士研究生</option>
-                        <option value="">硕士研究生</option>
-                        <option value="">大学本科</option>
-                        <option value="">大学专科</option>
-                        <option value="">中等专科</option>
-                        <option value="">高中</option>
-                        <option value="">初中</option>
-                        <option value="">小学</option>
-                        <option value="">其他</option>
+                         
+                   <foreach name="Think.config.EDULEVEL" item="v" key="k" >
+                       
+                         <option value="{$v}" <eq name="info.edulevel" value="$v">selected</eq>>{$v}</option>
+                    </foreach>                   
                     </select>
                 </div>
             </div>
@@ -126,7 +118,7 @@
             <div class="layui-inline">
                 <label class="layui-form-label">出生年月</label>
                 <div class="layui-input-block">
-                    <input type="text" name="date" id="date" lay-verify="date" placeholder="年-月-日" autocomplete="off" class="layui-input" onclick="layui.laydate({elem: this})">
+                    <input type="text" name="birthday" id="date" lay-verify="date" placeholder="年-月-日" autocomplete="off" class="layui-input" onclick="layui.laydate({elem: this})">
                 </div>
             </div>
 
@@ -139,20 +131,12 @@
             <div class="layui-inline">
                 <label class="layui-form-label">工作经验</label>
                 <div class="layui-input-inline">
-                    <select name="quiz">
+                    <select name="experience" id="experience">
                         <option value="">请选择</option>
-                        <option value="">应届毕业生</option>
-                        <option value="">一年</option>
-                        <option value="">二年</option>
-                        <option value="">三年</option>
-                        <option value="">四年</option>
-                        <option value="">五年</option>
-                        <option value="">六年</option>
-                        <option value="">七年</option>
-                        <option value="">八年</option>
-                        <option value="">九年</option>
-                        <option value="">十年</option>
-                        <option value="">十年以上</option>
+                        <foreach name="Think.config.EXPERIENCE" item="v" key="k">
+                            <option value="{$v}" <eq name="info.experience" value="$v">selected</eq>>{$v}</option>
+                         
+                        </foreach>
                     </select>
                 </div>
             </div>
@@ -164,11 +148,11 @@
             <div class="layui-inline">
                 <label class="layui-form-label">期望月薪</label>
                 <div class="layui-input-inline" style="width: 100px;">
-                    <input type="text" name="price_min" placeholder="￥" autocomplete="off" class="layui-input">
+                    <input type="text" name="salaryStart" placeholder="￥" autocomplete="off" class="layui-input">
                 </div>
                 <div class="layui-form-mid">-</div>
                 <div class="layui-input-inline" style="width: 100px;">
-                    <input type="text" name="price_max" placeholder="￥" autocomplete="off" class="layui-input">
+                    <input type="text" name="pricemax" placeholder="￥" autocomplete="off" class="layui-input">
                 </div>
             </div>
 
@@ -178,15 +162,17 @@
         <div class="layui-form-item">
             <label class="layui-form-label">简历上传</label>
             <div class="layui-box layui-upload-button">
-                <input type="file" name="file" class="layui-upload-file">
-                <span class="layui-upload-icon"><i class="layui-icon"></i>上传简历附件</span>
+                <!--<input type="file" name="file" class="layui-upload-file">-->
+                <input name="file" lay-type="file" class="layui-upload-file" type="file"> 
+               <span class="layui-upload-icon"><i class="layui-icon"></i>上传简历附件</span>
             </div>
         </div>
 
 
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <button class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+              <!-- <button class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>-->
+                <button class="layui-btn" lay-submit="" >立即提交</button>
                 <button type="reset" class="layui-btn layui-btn-primary">重置</button>
             </div>
         </div>
@@ -225,7 +211,7 @@
             return false;
         });
 
-        form.on('select(section)', function(data){
+        form.on('select(reals)', function(data){
                
                 $.ajax({
                         type:"post",

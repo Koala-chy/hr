@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>添加岗位</title>
+    <title>修改岗位</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -17,28 +17,29 @@
 <body>
 <div style="margin: 15px;">
     <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-        <legend>添加岗位</legend>
+        <legend>修改部门</legend>
     </fieldset>
 
-    <form class="layui-form" action="{:U('Recruit/Ad_job')}" method="post">
+    <form class="layui-form" action="{:U('Recruit/save_resume')}" method="post">
 
-        <input type="hidden" name="pid" value="{$id}">
+        <input type="hidden" name="id" value="{$data.id}">
 
         <div class="layui-form-item">
 
             <div class="layui-inline">
-                <label class="layui-form-label">岗位</label>
+                <label class="layui-form-label">部门</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="job" id="job" lay-verify="required"  autofocus="autofocus"class="layui-input">
+                    <input type="text" name="job" lay-verify="required" autocomplete="off" class="layui-input" value="{$data.job}">
                 </div>
             </div>
 
         </div>
-
+        
+   
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <button class="layui-btn" lay-submit="" lay-filter="demo1">添加</button>
-                <button type="reset" id="reset" class="layui-btn layui-btn-primary">重置</button>
+                <button class="layui-btn" lay-submit="" lay-filter="demo1">修改</button>
+                <a    href='{$Think.server.http_referer}'     class="layui-btn layui-btn-primary">返回</a>
             </div>
         </div>
     </form>
@@ -51,15 +52,6 @@
                 layer = layui.layer,
                 layedit = layui.layedit,
                 laydate = layui.laydate;
-
-
-        $('#reset').click(function(){
-
-            $('#job').focus();
-
-        })
-
-
 
     });
 </script>

@@ -45,5 +45,27 @@ function  getPage(&$model,$where,$p='p',$pagenumb=5,$rollpage=5){
          
          return $page;
     
-  
 }
+
+/**
+ *  统计面试信息数据
+ * @param type $job  面试岗位
+ * @param type $jobstatus  面试状态
+ * @return type  
+ */
+ function   invite($job,$jobstatus){
+     
+            $model = M('resumes');
+            
+             $where['jobstatus'] = $jobstatus;
+      
+             $where['job'] =$job;
+            
+             $count = $model ->where($where) ->count();
+         
+    
+             return $count;
+    
+}
+
+

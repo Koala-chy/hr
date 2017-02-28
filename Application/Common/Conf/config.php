@@ -7,6 +7,7 @@ return array(
     'DB_NAME'               =>  'hr',          // 数据库名
     'DB_USER'               =>  'root',      // 用户名
     'DB_PWD'                =>  '',          // 密码
+    'DB_PREFIX'	            =>	'h_',
 
     'DEFAULT_MODULE' => 'Home', // 默认模块
     'MODULE_ALLOW_LIST' => array('Home'),
@@ -21,7 +22,7 @@ return array(
             'CSS_PATH' => '/Public/css',
             'JS_PATH' => '/Public/js',
             'IMG_PATH' => '/Public/images',
-            'UPLOAD' => '/upload',
+            'UPLOAD' => '/uploads',
         )
 
 

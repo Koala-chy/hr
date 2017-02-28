@@ -27,7 +27,7 @@
             <div class="layui-inline">
                 <label class="layui-form-label">部门</label>
                 <div class="layui-input-inline">
-                    <input type="tel" name="job" lay-verify="required" autocomplete="off" class="layui-input">
+                    <input type="text" name="job" id="job" lay-verify="required"  autofocus="autofocus"class="layui-input">
                 </div>
             </div>
 
@@ -36,7 +36,7 @@
         <div class="layui-form-item">
             <div class="layui-input-block">
                 <button class="layui-btn" lay-submit="" lay-filter="demo1">添加</button>
-                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                <button type="reset" id="reset" class="layui-btn layui-btn-primary">重置</button>
             </div>
         </div>
     </form>
@@ -65,6 +65,13 @@
                 layedit.sync(editIndex);
             }
         });
+
+        $('#reset').click(function(){
+
+            $('#job').focus();
+
+        })
+
 
 
     });

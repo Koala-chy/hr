@@ -1,163 +1,191 @@
 <!DOCTYPE html>
 <html>
 
-    <head>
-        <meta charset="UTF-8">
-        <title>人才库</title>
-        <link rel="stylesheet" href="PUBLIC/plugins/layui/css/layui.css" media="all" />
-        <link rel="stylesheet" href="CSS_PATH/global.css" media="all">
-        <link rel="stylesheet" href="PUBLIC/plugins/font-awesome/css/font-awesome.min.css">
-        <link rel="stylesheet" href="CSS_PATH/table.css" />
-    </head>
+	<head>
+		<meta charset="UTF-8">
+		<title>人才库</title>
+		<link rel="stylesheet" href="PUBLIC/plugins/layui/css/layui.css" media="all" />
+		<link rel="stylesheet" href="CSS_PATH/global.css" media="all">
+		<link rel="stylesheet" href="PUBLIC/plugins/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="CSS_PATH/table.css" />
+                <link rel="stylesheet" href="CSS_PATH/search.css" />
+	</head>
 
-    <body>
-        <div class="admin-main">
+	<body>
+            {$page}<br><br>
+		<div class="admin-main">
 
-            <blockquote class="layui-elem-quote">
-                <a href="__URL__/add_resume.html" class="layui-btn layui-btn-small" id="add">
-                    <i class="layui-icon">&#xe608;</i> 新增简历
-                </a>
+			<blockquote class="layui-elem-quote">
+				<a href="__URL__/add_resume.html" class="layui-btn layui-btn-small" id="add">
+					<i class="layui-icon">&#xe608;</i> 新增简历
+				</a>
+            <!--                <form class="form-wrapper" action="__URL__/talents" method="get"> 
+		                    <div style="width:100%; margin-top: 0px; padding-top: 0px;  border:0px solid red;">
 
-                <a href="javascript:;" class="layui-btn layui-btn-small" id="search">
-                    <i class="layui-icon">&#xe615;</i> 搜索
-                </a>
-            </blockquote>
-            <fieldset class="layui-elem-field">
-                <legend>简历列表</legend>
-                <div class="layui-field-box">
-                    <table class="site-table table-hover">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>姓名</th>
-                                <th>学历</th>
-                                <th>手机</th>
-                                <th>应聘职位</th>
-                                <th>期望职位</th>
-                                <th>创建时间</th>
-                                <th>状态</th>
-                                <th>操作</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>张三</td>
-                                <td>一本</td>
-                                <td>15277496435</td>
-                                <td>技术</td>
-                                <td>技术</td>
-                                <td>2016-11-16 11:50</td>
-                                <td>已面试</td>
-                                <td>
-                                    <a href="/detail-1" target="_blank" class="layui-btn layui-btn-normal layui-btn-mini">预览</a>
-                                    <a href="/manage/article_edit_1" class="layui-btn layui-btn-mini">编辑</a>
-                                    <a href="javascript:;" data-id="1" data-opt="del" class="layui-btn layui-btn-danger layui-btn-mini">删除</a>
-                                </td>
-                            </tr>
+     <div style="width:250px;  background:white; float:right;">  
+         <input name="keyword" type="text" id="keyword" placeholder="输入姓名检索 ..." required>
+    <input type="submit" value="简历搜索" id="submit">
+</div>
 
-                        </tbody>
-                    </table>
+ </div>
+        </form>  -->
+                            
+                            
+              <form action="__URL__/talents" method="get" style="display: inline-block" class="layui-form">
+                          
+                        <div class="layui-form-item" style="margin-bottom: -14px;padding-left: 17px">
+                            <div class="layui-input-inline">
+                                <input name="keyword" type="text" placeholder="姓名/手机搜索" autocomplete="off" class="layui-input" style="height: 35px;border-radius: 10px">
+                            </div>
 
-                </div>
-            </fieldset>
-            <div class="admin-table-page">
-                <div id="page" class="page">
-                </div>
-            </div>
-        </div>
-        <script type="text/javascript" src="PUBLIC/plugins/layui/layui.js"></script>
-        <script>
-            layui.config({
-                base: '/Public/plugins/layui/modules/'
-            });
+                            <div class="layui-input-inline">
+                                <button style="height: 35px;border-radius: 10px" class="layui-btn" lay-submit="" lay-filter="demo1">搜索</button>
+                            </div>
+                        </div>
+                    </form>
+                            
+                            
+                            
+			</blockquote>
+ 
+                    
+                   
+			<fieldset class="layui-elem-field">
+				<legend>简历列表</legend>
+				<div class="layui-field-box">
+					<table class="site-table table-hover">
+						<thead>
+                                                    
+							<tr>
+								<th>ID</th>
+								<th>姓名</th>
+								<th>学历</th>
+								<th>手机</th>
+								<th>应聘职位</th>
+								<th>工作经验</th>
+								<th>创建时间</th>
+								<th>状态</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+                                                <volist name="lists" id="vo">
+							<tr>
+								<td>{$vo.id}</td>
+								<td>{$vo.name}</td>
+								<td>{$vo.edulevel}</td>
+								<td>{$vo.telphone}</td>
+                                                                <td>{$vo.bumen}--{$vo.job}</td>
+								<td>{$vo.experience}</td>
+								<td>{$vo.addsubtime}</td>
+                                                                <td>
+                                                                    
+                                                                    <switch name="vo.jobstatus">
+                                                        <case value="1"><font style="color:#EE5C42">已面试</font></case>
+                                                                        <case value="2">
+                                                                            <font style="color:#EE5C42">
+                                                                            未面试
+                                                                            </font>
+                                                                        </case>
+                                                                                                                                            <case value="3">邀约</case>
+                                                                           
+                                                                        <case value="4">
+                                                                           <font style="color:#EE7AE9"> 面试合格
+                                                                           </font>
+                                                                        </case>
+                                                                         <case value="5">
+                                                                              <font style="color:#EE9A00">
+                                                                             不合格
+                                                                             </font>
+                                                                         </case>
+                                                                        <default />简历没有查看
+                                                                      </switch>
+                                    
+                                                                    </</td>
+								<td>
+									<a href="__URL__/view_resume/id/{$vo.id}" class="layui-btn layui-btn-normal layui-btn-mini">预览</a>
+									<a href="__URL__/edit_resume/id/{$vo.id}" class="layui-btn layui-btn-mini">编辑</a>
+									<a href="__URL__/del_resume/id/{$vo.id}" data-id="1" data-opt="del" class="layui-btn layui-btn-danger layui-btn-mini">删除</a>
+								</td>
+							</tr>
+                                                </volist>
 
-            layui.use(['icheck', 'laypage', 'layer'], function () {
-                var $ = layui.jquery,
-                        laypage = layui.laypage,
-                        layer = parent.layer === undefined ? layui.layer : parent.layer;
-                $('input').iCheck({
-                    checkboxClass: 'icheckbox_flat-green'
-                });
+						</tbody>
+					</table>
 
-                //page
-                laypage({
-                    cont: 'page',
-                    pages: 25 //总页数
-                    ,
-                    groups: 5 //连续显示分页数
-                    ,
-                    jump: function (obj, first) {
-                        //得到了当前页，用于向服务端请求对应数据
-                        var curr = obj.curr;
-                        if (!first) {
-                            //layer.msg('第 '+ obj.curr +' 页');
-                        }
-                    }
-                });
+				</div>
+			</fieldset>
+			<div class="admin-table-page">
+				<div id="page" class="page">
+                                    {$page}
+                                   
+				</div>
+			</div>
+                    
+                    <ul id="biuuu_city_list"></ul>
+                  
+<div id="biuuu_city"></div>
+		</div>
+		<script type="text/javascript" src="PUBLIC/plugins/layui/layui.js"></script>
+               
+                <script src="JS_PATH/laypage/laypage.js"></script>
+<script>
+    function page(curr){
+    $.getJSON("{:U('Index/talents')}", {
+        page: curr //向服务端传的参数，此处只是演示
+    }, function(res){ // 服务器返回的 json 结果
+        // 这里处理 res.lists 中的数据内容，使用 html() 方法显示
+       //此处仅仅是为了演示变化的内容
+           // var demoContent = (new Date().getTime()/Math.random()/1000)|0;
+           // document.getElementById('biuuu_city_list').innerHTML = res.content + demoContent;
+        // 略……
+       // alert(res.content);
+        //显示分页
+        laypage({
+            cont: 'show_pages', // 容器
+            pages: res.allpage,     // 总页数(后台的)
+            curr: res.nowpage, //当前页(后台获取到的)
+            jump: function(obj, first){ //触发分页后的回调(单击页码后)
+                if(!first){ //点击跳页触发函数自身，并传递当前页：obj.curr
+                    page(obj.curr);  // (被单击的页码)
+                }
+            }
+        });
+    });
+};                
+                    
+                    
+ 
+    // 分页
+    laypage({
+       // cont: 'show_pages', // 分页容器
+        cont:'biuuu_city',
+        pages: "{$allpage}",     // 总页数
+        //skip: true, //是否开启跳页
+         skin: '#1E9FFF',
+        curr: function(){
+            var page = "{$nowpage}"; // 当前页(后台获取到的)
+           // var keyword ="{$keyword}";
+            return page ? page : 1; // 返回当前页码值
+        }(),
+        jump: function(e, first){ //触发分页后的回调(单击页码后)
+            if(!first){ //一定要加此判断，否则初始时会无限刷新
+                var urls = "{:U('Index/talents/',array('page'=>'pageval'))}?keyword={$keyword}";
+                var nowpage = e.curr;  // (被单击的页码)
+                urls = urls.replace('pageval',nowpage); // 替换链接样式和页码
+              var turl= window.location.href = urls;
+             //  document.getElementById('biuuu_city_list').innerHTML = urls;
+             return turl;
+             
+            // alert(pageval);
+            }
+            
+        }
+    });
 
-                $('#search').on('click', function () {
-                    parent.layer.alert('你点击了搜索按钮')
-                });
-
-                $('#add').on('click', function () {
-                    $.get('temp/edit-form.html', null, function (form) {
-                        layer.open({
-                            type: 1,
-                            title: '添加表单',
-                            content: form,
-                            btn: ['保存', '取消'],
-                            area: ['600px', '400px'],
-                            maxmin: true,
-                            yes: function (index) {
-                                console.log(index);
-                            },
-                            full: function (elem) {
-                                var win = window.top === window.self ? window : parent.window;
-                                $(win).on('resize', function () {
-                                    var $this = $(this);
-                                    elem.width($this.width()).height($this.height()).css({
-                                        top: 0,
-                                        left: 0
-                                    });
-                                    elem.children('div.layui-layer-content').height($this.height() - 95);
-                                });
-                            }
-                        });
-                    });
-                });
-
-                $('#import').on('click', function () {
-                    var that = this;
-                    var index = layer.tips('只想提示地精准些', that, {tips: [1, 'white']});
-                    $('#layui-layer' + index).children('div.layui-layer-content').css('color', '#000000');
-                });
-
-                $('.site-table tbody tr').on('click', function (event) {
-                    var $this = $(this);
-                    var $input = $this.children('td').eq(0).find('input');
-                    $input.on('ifChecked', function (e) {
-                        $this.css('background-color', '#EEEEEE');
-                    });
-                    $input.on('ifUnchecked', function (e) {
-                        $this.removeAttr('style');
-                    });
-                    $input.iCheck('toggle');
-                }).find('input').each(function () {
-                    var $this = $(this);
-                    $this.on('ifChecked', function (e) {
-                        $this.parents('tr').css('background-color', '#EEEEEE');
-                    });
-                    $this.on('ifUnchecked', function (e) {
-                        $this.parents('tr').removeAttr('style');
-                    });
-                });
-                $('#selected-all').on('ifChanged', function (event) {
-                    var $input = $('.site-table tbody tr td').find('input');
-                    $input.iCheck(event.currentTarget.checked ? 'check' : 'uncheck');
-                });
-            });
-        </script>
-    </body>
+		</script>
+	</body>
 
 </html>
+
+

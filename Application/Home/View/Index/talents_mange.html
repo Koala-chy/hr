@@ -16,22 +16,19 @@
 		<div class="admin-main">
 
 			<blockquote class="layui-elem-quote">
-				
-					
-			
-                                         <form action="__URL__/talents" method="get" style="display: inline-block" class="layui-form">
-                          
-                        <div class="layui-form-item" style="margin-bottom: -14px;padding-left: 17px">
-                            <div class="layui-input-inline">
-                                <input name="keyword" type="text" placeholder="按姓名检索" autocomplete="off" class="layui-input" style="height: 35px;border-radius: 10px">
-                            </div>
+				<a href="__URL__/add_resume.html" class="layui-btn layui-btn-small" id="add">
+					<i class="layui-icon">&#xe608;</i> 
+				</a>
+                            <form class="form-wrapper" action="__URL__/talents" method="get"> 
+		                    <div style="width:100%; margin-top: 0px; padding-top: 0px;  border:0px solid red;">
 
-                            <div class="layui-input-inline">
-                                <button style="height: 35px;border-radius: 10px" class="layui-btn" lay-submit="" lay-filter="demo1">搜索</button>
-                            </div>
-                        </div>
-                    </form>
-                                           
+     <div style="width:250px;  background:white; float:right;">  
+         <input name="keyword" type="text" id="keyword" placeholder="输入姓名检索 ..." required>
+    <input type="submit" value="简历搜索" id="submit">
+</div>
+
+ </div>
+        </form>                    
 			</blockquote>
  
                     
@@ -59,14 +56,14 @@
 							<tr>
 								<td>{$vo.id}</td>
 								<td>{$vo.name}</td>
-								<td>{$vo.edulevel}</td>
-								<td>{$vo.telphone}</td>
-                                                                <td>{$vo.bumen}--{$vo.job}</td>
-								<td>{$vo.experience}</td>
-								<td>{$vo.addsubtime}</td>
+								<td>一本</td>
+								<td>15277496435</td>
+								<td>技术</td>
+								<td>技术</td>
+								<td>2016-11-16 11:50</td>
 								<td>已面试</td>
 								<td>
-									<a href="__URL__/view_resume/ive/tive/id/{$vo.id}" class="layui-btn layui-btn-normal layui-btn-mini">预览</a>
+									<a href="__URL__/view_resume/id/{$vo.id}" class="layui-btn layui-btn-normal layui-btn-mini">预览</a>
 									<a href="__URL__/edit_resume/id/{$vo.id}" class="layui-btn layui-btn-mini">编辑</a>
 									<a href="__URL__/del_resume/id/{$vo.id}" data-id="1" data-opt="del" class="layui-btn layui-btn-danger layui-btn-mini">删除</a>
 								</td>
@@ -133,7 +130,7 @@
         }(),
         jump: function(e, first){ //触发分页后的回调(单击页码后)
             if(!first){ //一定要加此判断，否则初始时会无限刷新
-                var urls = "{:U('Index/interview/',array('page'=>'pageval'))}?keyword={$keyword}";
+                var urls = "{:U('Index/talents/',array('page'=>'pageval'))}?keyword={$keyword}";
                 var nowpage = e.curr;  // (被单击的页码)
                 urls = urls.replace('pageval',nowpage); // 替换链接样式和页码
               var turl= window.location.href = urls;

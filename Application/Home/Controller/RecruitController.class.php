@@ -25,7 +25,7 @@ class RecruitController extends Controller{
     public function Ad_section(){
 
         if(IS_POST){
-            $model = M('H_section');
+            $model = M('section');
 
             $data = $model ->create();
 
@@ -56,7 +56,7 @@ class RecruitController extends Controller{
 
        if(IS_POST){
 
-           $model = M('H_section');
+           $model = M('section');
 
            $data = $model ->create();
 
@@ -95,7 +95,7 @@ class RecruitController extends Controller{
               
          $where['id'] = $id;
         
-         $model = M('H_section');
+         $model = M('section');
         
          if($val == ''){
               $res = $model ->where($where) ->delete();
@@ -125,12 +125,12 @@ class RecruitController extends Controller{
        
           $id =I('get.id');
           
-         $model = M('H_section');
+         $model = D('section');
          
          $where['id'] = $id;
-         
+             
          $res = $model ->where($where)->delete();
-        
+                 
         if($res){
             
                $this -> success('删除成功','/Index/section_manage');
@@ -158,7 +158,7 @@ class RecruitController extends Controller{
              
               $where['id'] = $id;
               $data['job'] = $job;
-             $model = M('H_section');
+              $model = M('section');
              
              $res = $model -> where($where) ->save($data);      
              
@@ -185,7 +185,7 @@ class RecruitController extends Controller{
         
          if(IS_POST){
             
-                 $model = M('H_requirements');
+                 $model = M('requirements');
 
 //       var_dump($model);
 
@@ -219,7 +219,7 @@ class RecruitController extends Controller{
    */
     public function  save_type(){
         
-        $model = M('H_requirements');
+        $model = M('requirements');
         
          $id = I('get.id');
         
@@ -244,7 +244,7 @@ class RecruitController extends Controller{
      */
     public function save_need(){
          
-          $model = M('H_requirements');
+          $model = M('requirements');
           
           $model ->create();
          
@@ -269,7 +269,7 @@ class RecruitController extends Controller{
     
     public function del_need(){
         
-        $model = M('H_requirements');
+        $model = M('requirements');
         
         $where['id'] = I('get.id');
         

@@ -26,7 +26,7 @@
             <div class="layui-inline">
                 <label class="layui-form-label">用户</label>
                 <div class="layui-input-inline">
-                    <input type="tel" name="username" lay-verify="required" autocomplete="off" class="layui-input">
+                    <input type="tel" id="tel" name="username" lay-verify="required"  autofocus="autofocus" class="layui-input">
                 </div>
             </div>
 
@@ -46,14 +46,15 @@
         
            <div class="layui-form-item">
 
-            <div class="layui-inline">
+             <div class="layui-inline">
                 <label class="layui-form-label">确认密码</label>
                 <div class="layui-input-inline">
                     <input type="password"  lay-verify="required" autocomplete="off" class="layui-input" id="psw_2">
                 </div>
-            </div>
+                <span id="psd_info" style="color: red;display: none">两次密码不一致！</span>
+             </div>
             
-        </div>
+           </div>
         
        
         <div class="layui-form-item">
@@ -71,7 +72,7 @@
             
             <div class="layui-input-block">
                 <button class="layui-btn" lay-submit="" lay-filter="demo1">添加</button>
-                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                <button type="reset" class="layui-btn layui-btn-primary" id="reset">重置</button>
             </div>
             
         </div>
@@ -90,28 +91,48 @@
                 
      
         $('#psw_2').keyup(function(){
-            
-                var  psw_1 = $('#psw_1').val();
-                
-                var  psw_2  = $('#psw_2').val();    
-                
-                if(psw_2 =='' & psw_2 != psw_1){
-                    
-                    
-                    console.log(111);
-                    
-                }else{
-                    
-                    console.log(00000);
+
+            if($('#psw_2').val()==$('#psw_1').val() & $('#psw_2').val()!=''){
+
+                $('#psd_info').css({'display':'none'});
+
+            }else{
+
+                $('#psd_info').css({'display':''});
+            }
+
+
+            $('form').submit(function(){
+
+                var val =$('#psw_1').val();
+
+                var psd_val  =$('#psw_2').val();
+
+                if(val != psd_val){
+
+                    $('#psd_info').css({'display':''});
+
+                    $('#psw_2').focus;
+
+                    return false
                 }
-            
-            
-            
-            
-            
+
+                return true
+
+            })
+
+
         });
-        
-    
+
+
+      $('#reset').click(function(){
+
+          $('#tel').focus();
+
+      })
+
+
+
 
     });
 </script>

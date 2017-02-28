@@ -4,6 +4,9 @@ use Think\Controller;
 class IndexController extends Controller {
 
 
+    protected $trueTableName = 'resumes'; //定义真实表名，人才库表
+
+
     public  function  index(){
         
          $this -> display();
@@ -57,17 +60,303 @@ class IndexController extends Controller {
 
         }
     }
-    
-    
-    
-  //部门及岗位管理
+
+
+
+    //部门及岗位
+    /*
+     * 人才库视图列表数据
+     * @开发者:tianYongquan
+
+     */
+    public function Talents() {
+        $Data = M($this->trueTableName);
+        if (!$Data) {
+            echo $Data->getDbError();
+        }
+
+        // 获取当前页码，默认第一页，设置每页默认显示条数
+        $nowpage = I('get.page', 1, 'intval');
+        $keyword = I('get.keyword', '');
+        $map['name|telphone'] = array('LIKE', "%$keyword%");
+	//$map['telphone'] = array('LIKE', "%$keyword%");
+        $limits = 15;
+        // 获取总条数
+        $count = $Data->where($map)->count();
+        //$Page = new \Think\Page($count,3); //实例化分页类，传入条数为默认3条
+        // 计算总页面
+        $allpage = ceil($count / $limits);
+        $allpage = intval($allpage);
+        $lists = $Data
+            ->alias('a')
+            ->join(C('DB_PREFIX')."section as b ON a.reals=b.id",'left')
+            ->page($nowpage, $limits)  // page 方法分页
+            ->where($map)
+            ->order('addsubtime desc')
+            ->field('a.*,b.job as bumen')
+            ->select();
+	 // echo $Data->getLastSql($lists);//打印SQL语句
+	
+	
+        //dump($lists);
+        // 跳转分页输出
+        $this->assign('lists', $lists);
+        $this->assign('allpage', $allpage);
+        $this->assign('nowpage', $nowpage);
+        $this->assign('keyword', $keyword);
+        $this->display('');
+    }
+
+
+
+    //部门及岗位
+    /*
+     * 新增箭头数据视图
+     * @开发者:tianYongquan
+
+     */
+    public function edit_resume($id) {
+
+        if (!empty($id)) {
+            $Form = M($this->trueTableName);
+            $model = M('section');
+            $data = $model->field('id,pid,job')->where('pid =0 ')->select();
+            $this->data = $data;
+            $vo = $Form->getById($id);
+            if ($vo) {
+                $this->info = $vo;
+                $this->display();
+            } else {
+                $this->error('数据不存在！');
+            }
+        } else {
+            $this->error('数据不存在！');
+        }
+    }
+
+    public function view_resume($id) {
+        if (!empty($id)) {
+            $Form = M($this->trueTableName);
+            $id = I('get.id');
+            $vo = $Form ->alias('a')
+                ->join(C('DB_PREFIX')."section as b ON a.reals=b.id",'left')
+                ->field('a.*,b.job as bumen')
+                ->where('a.id='.$id)
+                ->find();
+            if ($vo) {
+                $this->info = $vo;
+                $this->display();
+            } else {
+                $this->error('数据不存在！');
+            }
+        } else {
+            $this->error('数据不存在！');
+        }
+    }
+
+
+    // 更新数据
+    public function update() {
+        $upload = new \Think\Upload(C('UPLOADFILE'));
+        $info = $upload->uploadOne($_FILES['file']);
+        if (!empty($info['size'])) {
+            if (!$info) {// 上传错误提示错误信息
+                $this->error($upload->getError());
+            } else {// 上传成功 获取上传文件信息
+                //  echo $info['savepath'].$info['savename'];
+                $upname = $info['savename'];
+                $uppath = $info['savepath'];
+            }
+        }
+
+        $Upform = D($this->trueTableName);
+        if ($Upform->create()) {
+            $id = I('post.id');
+            $Upform->filename = $upname;
+            $Upform->filpath = $uppath;
+            $Upform->addsubtime = date('Y-m-d H:i:s',time());
+            $list = $Upform->where('id=' . $id)->save();
+            if ($list !== false) {
+                $this->success('数据更新成功！', U('Index/talents'));
+            } else {
+                $this->error("没有更新任何数据!");
+            }
+        } else {
+            $this->error($Upform->getError());
+        }
+    }
+
+
+
+    //部门及岗位
+    /*
+     * 更新简历状态信息
+     * @开发者:tianYongquan
+
+     */
+
+   public function upjobstatus() {
+	$upload = new \Think\Upload(C('UPLOADFILE'));
+        $info = $upload->uploadOne($_FILES['file']);
+        $Upform = D($this->trueTableName);
+        $id = I('post.id');	
+        $_map['id'] = I('post.id');
+	if (I('post.upname') && I('post.uppath') != '' && empty($info['size'])) {
+	     $upname = I('post.upname');
+	     $uppath  = I('post.uppath');
+	     $_postdata = array(
+	       'jobstatus'=> I('post.jobstatus'),
+	       'filename' => $upname,
+	       'filpath'  => $uppath);
+	} elseif(!empty($info['size']) && I('post.upname')=='' ){
+	     	 if (!$info) {// 上传错误提示错误信息
+		    $this->error($upload->getError());
+	        } else {
+                  // 上传成功 获取上传文件信息
+		    $upname = $info['savename'];
+		    $uppath = $info['savepath'];
+		    $_postdata = array(
+		   'jobstatus'=> I('post.jobstatus'),
+		   'filename' => $upname,
+		   'filpath'  => $uppath);
+		}} else {  
+	      $_postdata = array('jobstatus'=>I('post.jobstatus'));
+	
+	}
+        $list = $Upform->where($_map)->setField($_postdata);
+        //echo $Upform->getLastSql($list).'ddddd'.$info['size'];//打印SQL语句
+	//exit;
+	
+       if ($list !== false) {
+            $this->success('简历状态更新成功！', U('Index/talents'));
+        } else {
+            $this->error("没有更新任何数据!");
+        }
+    }
+
+
+    //部门及岗位
+    /*
+     * 新增简历数据
+     * @开发者:tianYongquan
+
+     */
+    public function insert() {
+        $upload = new \Think\Upload(C('UPLOADFILE'));
+        $info = $upload->uploadOne($_FILES['file']);
+	/*
+        if (!$info) {// 上传错误提示错误信息
+            $this->error($upload->getError());
+        } else {// 上传成功 获取上传文件信息
+            //echo $info['savepath'] . $info['savename'];
+            $upname = $info['savename'];
+            $uppath = $info['savepath'];
+        }
+	*/
+	 if (!empty($info['size'])) {
+            if (!$info) {// 上传错误提示错误信息
+                $this->error($upload->getError());
+            } else {// 上传成功 获取上传文件信息
+                //  echo $info['savepath'].$info['savename'];
+                $upname = $info['savename'];
+                $uppath = $info['savepath'];
+            }
+        }
+	
+	
+        $_date = date('Y-m-d H:i:s',time());
+        $Form = D($this->trueTableName);
+        if ($Form->create()) {
+
+            $Form->filename = $upname;
+            $Form->filpath = $uppath;
+            $Form->addsubtime = $_date;
+            $list = $Form->add();
+            if ($list !== false) {
+                $this->success('数据保存成功！', U('Index/talents'));
+            } else {
+                $this->error('数据写入错误！');
+            }
+        } else {
+            $this->error($Form->getError());
+        }
+    }
+
+    //部门及岗位管理
+    /*
+      简历删除
+     * @开发者:tianYongquan
+     *
+     */
+
+    public function del_resume($id) {
+        //echo $id;
+        //exit;
+        if (!empty($id)) {
+            $Form = M($this->trueTableName);
+            $result = $Form->delete($id);
+            if (false !== $result) {
+                $this->success('删除成功！');
+            } else {
+                $this->error('删除出错！');
+            }
+        } else {
+            $this->error('ID错误！');
+        }
+    }
+
+
+    //部门及岗位
+    /*
+     * 人才库视图列表数据
+     * @开发者:tianYongquan
+
+     */
+     public function interview() {
+        $Data = M($this->trueTableName);
+        if (!$Data) {
+            echo $Data->getDbError();
+        }
+        // 获取当前页码，默认第一页，设置每页默认显示条数
+        $nowpage = I('get.page', 1, 'intval');
+        $keyword = I('get.keyword', '');
+        $map['name'] = array('LIKE', "%$keyword%");
+	$map['jobstatus']   = array('in','1,2,3');
+        //$map['jobstatus']=1;
+        $limits = 10;
+        // 获取总条数
+        $count = $Data->where($map)->count();
+        //$Page = new \Think\Page($count,3); //实例化分页类，传入条数为默认3条
+        // 计算总页面
+        $allpage = ceil($count / $limits);
+        $allpage = intval($allpage);
+        $lists = $Data
+            ->alias('a')
+            ->join(C('DB_PREFIX')."section as b ON a.reals=b.id",'left')
+            ->page($nowpage, $limits)  // page 方法分页
+            ->where($map)
+            ->field('a.*,b.job as bumen')
+            ->order('addsubtime desc')
+            ->select();
+
+
+        // 跳转分页输出
+        $this->assign('lists', $lists);
+        $this->assign('allpage', $allpage);
+        $this->assign('nowpage', $nowpage);
+        $this->assign('keyword', $keyword);
+        $this->display('');
+    }
+
+
+    //部门及岗位管理
      /**
       * 调取部门及岗位管理视图页面数据
       * @author 常 弘扬 <changhongyang@123.com.cn>
       */
      public function section_manage(){
 
-         $model = M('H_section');
+         $model = M('section');
 
          $search = I('get.search');
 
@@ -122,7 +411,7 @@ class IndexController extends Controller {
     
     public function add_resume(){
         
-         $model = M('H_section');
+         $model = M('section');
         
         $data = $model->field('id,pid,job')->where('pid =0 ')->select();
         
@@ -138,9 +427,9 @@ class IndexController extends Controller {
      * @开发者:ChangHongYang
      */
     
-    public function edit_resume(){
+    public function edit_section(){
         
-        $model = M('H_section');
+        $model = M('section');
         
         $id = I('get.id');
         
@@ -163,7 +452,7 @@ class IndexController extends Controller {
      */
     public function recruit(){
 
-        $model = M('H_requirements');
+        $model = M('requirements');
         
          $search = I('get.search');
          
@@ -192,7 +481,7 @@ class IndexController extends Controller {
 
     public function add_need(){
 
-        $model = M('H_section');
+        $model = M('section');
 
         $data =$model -> field('id,pid,job')->select();
 
@@ -207,9 +496,9 @@ class IndexController extends Controller {
     
     public function alert_need(){
         
-          $model_1 = M('H_requirements');
+          $model_1 = M('requirements');
           
-          $model_2 = M('H_section');
+          $model_2 = M('section');
           
           $where['id'] = I('get.id');
         
@@ -234,7 +523,7 @@ class IndexController extends Controller {
      */
     public function look_recruit(){
 
-        $model = M('H_requirements');
+        $model = M('requirements');
 
         $id = I('get.id');
 
@@ -262,7 +551,7 @@ class IndexController extends Controller {
         
           $id = I('post.id');
         
-          $model = M('H_section');
+          $model = M('section');
         
           $arr['pid'] = $id;
           

@@ -70,9 +70,15 @@
                                 </td>
                                 <td>{$row.createtime|date='Y-m-d',###}</td>
                                 <td>{$row.number}</td>
-                                <td>5</td>
-                                <td>2</td>
-                                <td>3</td>
+                                <td>
+                                    <i style="color: blue"> {:invite($row['position'],3)}</i>                                   
+                                </td>
+                                <td>
+                                    <i style="color: #881280"> {:invite($row['position'],4)} </i>
+                                </td>
+                                <td>
+                                    <i style="color: red">{:invite($row['position'],5)}</i>   
+                                </td>
                                 <td>
                                     <switch name="row.type">
                                         <case value="0">招聘中</case>

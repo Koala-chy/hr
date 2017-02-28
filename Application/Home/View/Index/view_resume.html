@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>修改简历</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="stylesheet" href="PUBLIC/plugins/layui/css/layui.css" media="all" />
+    <link rel="stylesheet" href="PUBLIC/plugins/font-awesome/css/font-awesome.min.css">
+</head>
+<body>
+<div style="margin: 15px;">
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+        <legend>查看简历</legend>
+    </fieldset>
+
+    <form class="layui-form" method='post' enctype="multipart/form-data"  action="__URL__/upjobstatus" name="theForm">
+        <input type="hidden" name="id" value="{$info.id}"> 	 
+         <input type="hidden" name="upname" value="{$info.filename}">
+          <input type="hidden" name="uppath" value="{$info.filpath}">
+        <div class="layui-form-item">
+
+            <div class="layui-inline">
+               <label class="layui-form-label">姓名</label>
+                  <div class="layui-input-inline">
+                  {$info.name}
+               </div>
+               <a href="../../../../../ThinkDemo/Examples/curd/Tpl/Index/edit.html"></a>
+            </div>
+
+            <div class="layui-inline"></div>
+            <div class="layui-inline"></div>
+            <div class="layui-inline"></div>
+
+            <div class="layui-inline">
+                <label class="layui-form-label">性别</label>
+                <div class="layui-input-inline">
+                    <eq name="info.sex" value="1">男</eq>
+                    <eq name="info.sex" value="0">女</eq>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="layui-form-item">
+
+            <div class="layui-inline">
+                <label class="layui-form-label">手机号</label>
+                <div class="layui-input-inline">
+                    {$info.telphone}
+                  
+                </div>
+            </div>
+
+            <div class="layui-inline"></div>
+            <div class="layui-inline"></div>
+            <div class="layui-inline"></div>
+
+            <div class="layui-inline">
+                <label class="layui-form-label">邮箱</label>
+                <div class="layui-input-inline">
+                    {$info.email}
+                    
+                </div>
+            </div>
+
+        </div>
+
+        <div class="layui-form-item">
+
+            <div class="layui-inline">
+                <label class="layui-form-label">应聘岗位</label>
+
+                <div class="layui-input-inline">
+                    {$info.bumen} / {$info.job}
+                   
+                </div>
+
+             </div>
+
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">最高学历 </label>
+                <div class="layui-input-inline">
+                     {$info.edulevel}
+                  </div>
+            </div>
+
+            <div class="layui-inline"></div>
+            <div class="layui-inline"></div>
+            <div class="layui-inline"></div>
+
+            <div class="layui-inline">
+                <label class="layui-form-label">出生年月</label>
+                <div class="layui-input-block">
+                   {$info.birthday}
+                </div>
+            </div>
+
+        </div>
+
+
+
+        <div class="layui-form-item">
+
+            <div class="layui-inline">
+                <label class="layui-form-label">工作经验</label>
+                <div class="layui-input-inline">
+                   {$info.experience}
+                </div>
+            </div>
+
+            <div class="layui-inline"></div>
+            <div class="layui-inline"></div>
+            <div class="layui-inline"></div>
+
+            <div class="layui-inline">
+                <label class="layui-form-label">期望月薪</label>
+                <div class="layui-input-inline" style="width: 100px;">
+                    {$info.salarystart}K                  
+                </div>
+                <div class="layui-form-mid">-</div>
+                <div class="layui-input-inline" style="width: 100px;">
+                    {$info.pricemax}K
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">简历上传</label>
+            <div class="layui-box layui-upload-button">
+                <input type="file" name="file" class="layui-upload-file">
+                <span class="layui-upload-icon"><i class="layui-icon"></i>上传简历附件
+             
+                </span>
+                
+               
+                
+                  
+            </div>
+               
+            <div class="layui-box layui-upload-button">
+                <span class="layui-upload-icon"><i class="layui-icon"></i> <a href="PUBLIC/UPLOAD/{$info.filpath}{$info.filename}">{$info.filename}</a>已上传简历符件
+             
+                </span>
+            </div>
+            
+        </div>
+        
+          <div class="layui-form-item">
+    <label class="layui-form-label">简历状态</label>
+    <div class="layui-input-block">
+        <if condition="$Think.get.ive eq 'tive' ">
+            <foreach name="Think.config.JOBSTATUS" item="v" key="k">
+             <if condition="$k gt 3 ">
+                   <input type="radio"  name="jobstatus" value="{$k}" title="{$v}" <eq name="info.jobstatus" value="$k">checked</eq>>                          
+             </if>
+         </foreach>
+            
+            
+            <else />
+       
+         <foreach name="Think.config.JOBSTATUS" item="v" key="k">
+             <if condition="$k lt 4 ">
+                     <input type="radio"  name="jobstatus" value="{$k}" title="{$v}" <eq name="info.jobstatus" value="$k">checked</eq>>                          
+             </if>
+         </foreach>
+         </if>
+     
+    </div>
+  </div>
+        
+   
+
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+              <!-- <button class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>-->
+                <button class="layui-btn" lay-submit="" >立即提交</button>
+                <!--<button type="reset" class="layui-btn layui-btn-primary">返回</button>-->
+                
+                 <a href="{$Think.server.http_referer}"  class="layui-btn layui-btn-primary">返回</a>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="PUBLIC/plugins/layui/layui.js"></script>
+<script>
+    layui.use(['form', 'layedit', 'laydate'], function() {
+        var form = layui.form(),
+                $ = layui.jquery,
+                layer = layui.layer,
+                layedit = layui.layedit,
+                laydate = layui.laydate;
+
+
+        //创建一个编辑器
+        var editIndex = layedit.build('LAY_demo_editor');
+        //自定义验证规则
+        form.verify({
+            title: function(value) {
+                if(value.length < 5) {
+                    return '标题至少得5个字符啊';
+                }
+            },
+            pass: [/(.+){6,12}$/, '密码必须6到12位'],
+            content: function(value) {
+                layedit.sync(editIndex);
+            }
+        });
+
+        //监听提交
+        form.on('submit(demo1)', function(data) {
+            layer.alert(JSON.stringify(data.field), {
+                title: '最终的提交信息'
+            })
+            return false;
+        });
+
+        form.on('select(section)', function(data){
+            getJob();
+        });
+    });
+</script>
+</body>
+
+</html>
