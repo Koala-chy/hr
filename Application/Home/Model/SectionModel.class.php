@@ -6,7 +6,7 @@ class SectionModel extends \Think\Model {
 
     protected function _after_delete($data, $options) {
         
-         parent::_after_delete($data, $options);
+       parent::_after_delete($data, $options);
          
          D('Resumes')->where('reals='.$data['id'])->delete();
         

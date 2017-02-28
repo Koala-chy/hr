@@ -19,7 +19,7 @@
         <legend>添加管理员</legend>
     </fieldset>
 
-    <form class="layui-form" action="" method="post">
+    <form class="layui-form" action="{:U('User/role')}" method="post">
 
         <div class="layui-form-item">
 
@@ -49,7 +49,7 @@
              <div class="layui-inline">
                 <label class="layui-form-label">确认密码</label>
                 <div class="layui-input-inline">
-                    <input type="password"  lay-verify="required" autocomplete="off" class="layui-input" id="psw_2">
+                    <input type="password" name="repassword"  lay-verify="required" autocomplete="off" class="layui-input" id="psw_2">
                 </div>
                 <span id="psd_info" style="color: red;display: none">两次密码不一致！</span>
              </div>
