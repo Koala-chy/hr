@@ -10,6 +10,7 @@ namespace Home\Controller;
 
 use Think\Controller;
 
+//招聘管理  
 class RecruitController extends Controller{
 
 

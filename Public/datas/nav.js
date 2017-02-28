@@ -6,6 +6,26 @@ var navs = [
 		"href": "/Home/Index/main",
 		"spread": false
 	},
+        
+        
+                      {
+	"title": "角色管理",
+	"icon": "&#xe613;",
+	"spread": true,
+	"children": [
+		{
+                                                "title": "添加管理员",
+                                                "href": "/Home/User/add_admin"
+		},
+
+		{
+		    "title": "管理员列表",
+		    "href": "/Home/User/list_admin"
+	                      }
+
+		]
+                       },
+              
 
 
 
@@ -33,6 +53,6 @@ var navs = [
 		"title": "面试管理",
 		"href": "/Home/Index/interview"
 	   }]
-  }
+                 }
 
 ];
