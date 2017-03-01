@@ -23,6 +23,7 @@
                         <a class="logo" style="left: 0;" href="">
                             <span style="font-size: 22px;">人力资源管理V1.0</span>
                         </a>
+                        
                         <div class="admin-side-toggle">
                             <i class="fa fa-bars" aria-hidden="true"></i>
                         </div>
@@ -35,7 +36,7 @@
                         <li class="layui-nav-item">
                             <a href="javascript:;" class="admin-header-user">
                                 <img src="IMG_PATH/0.jpg" />
-                                <span>admin</span>
+                                <span>{$Think.session.name}</span>
                             </a>
                             <dl class="layui-nav-child">
                                 <!--<dd>-->
@@ -50,7 +51,7 @@
                                     </a>
                                 </dd>
                                 <dd>
-                                    <a href="__URL__/login.html"><i class="fa fa-sign-out" aria-hidden="true"></i> 注销</a>
+                                    <a href="{:U('/User/loginOut')}"><i class="fa fa-sign-out" aria-hidden="true"></i> 注销</a>
                                 </dd>
                             </dl>
                         </li>
@@ -69,8 +70,8 @@
                 <div class="layui-tab admin-nav-card layui-tab-brief" lay-filter="admin-tab">
                     <ul class="layui-tab-title">
                         <li class="layui-this">
-                            <i class="fa fa-dashboard" aria-hidden="true"></i>
-                            <cite>控制面板</cite>
+                            <i class="fa fa-home fa-lg" aria-hidden="true"></i>
+                            <cite>首页</cite>
                         </li>
                     </ul>
                     <div class="layui-tab-content" style="min-height: 150px; padding: 5px 0 0 0;">
@@ -97,7 +98,7 @@
                 <div class="admin-header-lock-img">
                 <img src="IMG_PATH/0.jpg"/>
                 </div>
-                <div class="admin-header-lock-name" id="lockUserName">beginner</div>
+                <div class="admin-header-lock-name" id="lockUserName">{$Think.session.name}</div>
                 <input type="text" class="admin-header-lock-input" value="输入密码解锁.." name="lockPwd" id="lockPwd" />
                 <button class="layui-btn layui-btn-small" id="unlock">解锁</button>
                 </div>
@@ -112,16 +113,7 @@
                     var $ = layui.jquery,
                             layer = layui.layer;
 
-                    $('#video1').on('click', function () {
-                        layer.open({
-                            title: 'YouTube',
-                            maxmin: true,
-                            type: 2,
-                            content: 'video.html',
-                            area: ['800px', '500px']
-                        });
-                    });
-                    
+                 
                     
                     $('#del_runtime').on('click',function(){
                          $.ajax({

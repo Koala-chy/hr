@@ -201,13 +201,21 @@ class IndexController extends Controller {
         $Upform = D($this->trueTableName);
         $id = I('post.id');	
         $_map['id'] = I('post.id');
-	if (I('post.upname') && I('post.uppath') != '' && empty($info['size'])) {
+	if (I('post.upname') && I('post.uppath') != '' && empty($info['size'])) { 
 	     $upname = I('post.upname');
 	     $uppath  = I('post.uppath');
 	     $_postdata = array(
 	       'jobstatus'=> I('post.jobstatus'),
 	       'filename' => $upname,
+	       'filpath'  => $uppath);	     
+	}elseif(I('post.upname') && I('post.uppath') != '' && !empty($info['size'])){
+	        $upname = $info['savename'];
+		$uppath = $info['savepath'];
+	      $_postdata = array(
+	       'jobstatus'=> I('post.jobstatus'),
+	       'filename' => $upname,
 	       'filpath'  => $uppath);
+	       
 	} elseif(!empty($info['size']) && I('post.upname')=='' ){
 	     	 if (!$info) {// 上传错误提示错误信息
 		    $this->error($upload->getError());
@@ -224,7 +232,7 @@ class IndexController extends Controller {
 	
 	}
         $list = $Upform->where($_map)->setField($_postdata);
-        //echo $Upform->getLastSql($list).'ddddd'.$info['size'];//打印SQL语句
+       // echo $Upform->getLastSql($list).'ddddd'.$info['size'];//打印SQL语句
 	//exit;
 	
        if ($list !== false) {
@@ -244,15 +252,6 @@ class IndexController extends Controller {
     public function insert() {
         $upload = new \Think\Upload(C('UPLOADFILE'));
         $info = $upload->uploadOne($_FILES['file']);
-	/*
-        if (!$info) {// 上传错误提示错误信息
-            $this->error($upload->getError());
-        } else {// 上传成功 获取上传文件信息
-            //echo $info['savepath'] . $info['savename'];
-            $upname = $info['savename'];
-            $uppath = $info['savepath'];
-        }
-	*/
 	 if (!empty($info['size'])) {
             if (!$info) {// 上传错误提示错误信息
                 $this->error($upload->getError());

@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>添加管理员</title>
+    <title>修改密码</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -16,29 +16,19 @@
 <body>
 <div style="margin: 15px;">
     <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-        <legend>添加管理员</legend>
+        <legend>修改密码</legend>
     </fieldset>
 
-    <form class="layui-form" action="{:U('User/role')}" method="post">
-
+    <form class="layui-form" action="{:U('User/save_psd')}" method="post">
+      
+        <input type="hidden" name='id' value="{$Think.session.Userid}">
+ 
         <div class="layui-form-item">
 
             <div class="layui-inline">
-                <label class="layui-form-label"><i style="color: red;font-size: 18px">*</i>&nbsp;用户</label>
+                <label class="layui-form-label"><i style="color: red;font-size: 18px">*</i>&nbsp;新密码</label>
                 <div class="layui-input-inline">
-                    <input type="tel" id="tel" name="username" lay-verify="required"  autofocus="autofocus" class="layui-input">
-                </div>
-            </div>
-
-        </div>
-        
-        
-        <div class="layui-form-item">
-
-            <div class="layui-inline">
-                <label class="layui-form-label"><i style="color: red;font-size: 18px">*</i>&nbsp;密码</label>
-                <div class="layui-input-inline">
-                    <input type="password" name="password" lay-verify="required" autocomplete="off" class="layui-input" id='psw_1'>
+                    <input type="password" name="password" lay-verify="required" autofocus="autofocus" class="layui-input" id='psw_1'>
                 </div>
             </div>
             
@@ -55,19 +45,7 @@
              </div>
             
            </div>
-        
        
-        <div class="layui-form-item">
-            <label class="layui-form-label">角色</label>
-            <div class="layui-input-block">
-                <input type="radio" name="rank" value="0" title="普通用户" checked>
-                <input type="radio" name="rank" value="1" title="管理员" >
-                <input type="radio" name="rank" value="2" title="超级管理员" >
-            </div>
-        </div>
-
-        
-        
         <div class="layui-form-item">
             
             <div class="layui-input-block">
@@ -117,7 +95,7 @@
                     return false
                 }
 
-                return true
+                 return true
 
             })
 
@@ -127,7 +105,7 @@
 
       $('#reset').click(function(){
 
-          $('#tel').focus();
+          $('#psw_1').focus();
 
       })
 

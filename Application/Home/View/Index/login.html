@@ -17,19 +17,19 @@
                 <h1>后台登录</h1>
             </header>
             <div class="beg-login-main">
-                <form       class="layui-form" method="post">
+                <form   action="{:U('User/checkLogin')}"  class="layui-form" method="post">
          
                     <div class="layui-form-item">
                         <label class="beg-login-icon">
                             <i class="layui-icon">&#xe612;</i>
                         </label>
-                        <input type="text" name="userName" lay-verify="userName" autocomplete="off" placeholder="这里输入登录名" class="layui-input">
+                        <input type="text" name="username" lay-verify="required"autofocus="autofocus"placeholder="这里输入登录名" class="layui-input">
                     </div>
                     <div class="layui-form-item">
                         <label class="beg-login-icon">
                             <i class="layui-icon">&#xe642;</i>
                         </label>
-                        <input type="password" name="password" lay-verify="password" autocomplete="off" placeholder="这里输入密码" class="layui-input">
+                        <input type="password" name="password" lay-verify="required" autocomplete="off" placeholder="这里输入密码" class="layui-input">
                     </div>
                     <div class="layui-form-item">                    
                         <div  style="text-align: center">
@@ -52,11 +52,7 @@
                         $ = layui.jquery,
                         form = layui.form();
 
-                form.on('submit(login)', function (data) {
-
-                    location.href = 'index.html';
-                    return false;
-                });
+                  
             });
         </script>
     </body>

@@ -21,6 +21,11 @@ var navs = [
 		{
 		    "title": "管理员列表",
 		    "href": "/Home/User/list_admin"
+	                      },
+                              
+                                             {
+		    "title": "修改密码",
+		    "href": "/Home/User/alter_psd"
 	                      }
 
 		]

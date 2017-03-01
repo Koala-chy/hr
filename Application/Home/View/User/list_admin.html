@@ -20,11 +20,11 @@
         </a>
 
 
-        <form action="" method="get" style="display: inline-block" class="layui-form">
+        <form action="{:U('/User/list_admin')}" method="get" style="display: inline-block" class="layui-form">
 
             <div class="layui-form-item" style="margin-bottom: -14px;padding-left: 17px">
                 <div class="layui-input-inline">
-                    <input name="search" value="{$search}" type="text" placeholder="搜索用户" autocomplete="off" class="layui-input" style="height: 35px;border-radius: 10px">
+                    <input name="search" value="{$search}" type="text" placeholder="搜索用户"  class="layui-input" style="height: 35px;border-radius: 10px">
                 </div>
 
                 <div class="layui-input-inline">
@@ -67,8 +67,8 @@
                                     {$row.createtime|date='Y-m-d',###}
                                 </td>
                                 <td>
-                                    <a href="" class="layui-btn layui-btn-mini">修改</a>
-                                    <a href="" data-id="1" onclick="return confirm('确定将此记录删除?')" data-opt="del" class="layui-btn layui-btn-danger layui-btn-mini">删除</a>
+                                    <a href="__URL__/edit_admin/id/{$row.id}" class="layui-btn layui-btn-mini">修改</a>
+                                    <a href="__URL__/del_admin/id/{$row.id}" onclick="return confirm('确定将此记录删除?')" data-opt="del" class="layui-btn layui-btn-danger layui-btn-mini">删除</a>
                                 </td>
                             </tr>
                     </volist>
