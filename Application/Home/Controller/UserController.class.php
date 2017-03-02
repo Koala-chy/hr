@@ -16,7 +16,7 @@ class UserController  extends  Controller{
     public function checkLogin(){
         
            if(IS_POST){
-               
+          
                  $model = D('user');
                  
                 $where['username'] = I('post.username');
@@ -32,8 +32,10 @@ class UserController  extends  Controller{
                      session('Userid', $res['id']);
                     
                      session('name', $res['username']);
-                        
-                     $this ->redirect('/Index/index') ;
+                     
+          
+                     redirect('/Index/index') ;
+                     
                      
                  }else{
                      
@@ -67,7 +69,7 @@ class UserController  extends  Controller{
              
            if(IS_POST){
                            
-                 $model = D('user');
+                 $model = D('User');
 
              if(!empty($model ->create())){
 

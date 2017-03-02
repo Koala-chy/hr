@@ -15,7 +15,7 @@
 /* 头部 */
 .header{height: 65px; border-bottom: 1px solid #404553;  background-color: #393D49; color: #fff;}
 .logo{position: absolute; left: 0; top: 18px;}
-.logo img{width: 82px; height: 31px;}
+/*.logo img{width: 82px; height: 31px;}*/
 
 .header .layui-nav{position: absolute; right: 0; top: 0; padding: 0; background: none;}
 .header .layui-nav .layui-nav-item{margin: 0 20px; line-height: 66px;}
@@ -166,7 +166,7 @@ body .layui-layer-dir .layui-layer-content{padding: 10px; max-height: 280px; ove
 .site-table thead{background-color:#f2f2f2; }
 .site-table th, 
 .site-table td{padding: 6px 15px; min-height: 20px; line-height: 20px; border:1px solid #ddd; font-size: 14px; font-weight: 400;}
-.site-table tr:nth-child(even){background: #fbfbfb;}
+/*.site-table tr:nth-child(even){background: #fbfbfb;}*/
 
 .site-block{padding: 20px; border: 1px solid #eee;}
 .site-block .layui-form{margin-right: 200px;}
@@ -329,7 +329,7 @@ body .site-demo-nav .layui-nav-item{line-height: 40px}
 .admin-side-toggle{
 	position: absolute; cursor: pointer;
     z-index: 19940201;
-    left: 200px;
+    left: 217px;
     color: white;
     text-align: center;
     width: 30px;

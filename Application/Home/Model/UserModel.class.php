@@ -63,11 +63,6 @@ class UserModel extends Model{
 
     
 
-
-
-
-
-
     //自动完成
 
     protected $_auto = array (

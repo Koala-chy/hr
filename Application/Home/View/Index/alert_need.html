@@ -10,6 +10,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
+    <link rel="icon" href="http://cdn.static.123.com.cn/CloudStatic/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="PUBLIC/plugins/layui/css/layui.css" media="all" />
     <link rel="stylesheet" href="PUBLIC/plugins/font-awesome/css/font-awesome.min.css">
     <script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
@@ -169,13 +170,13 @@
             <div class="layui-inline"></div>
 
             <div class="layui-inline">
-                <label class="layui-form-label">薪资待遇</label>
+                <label class="layui-form-label"><i style="color: red;font-size: 18px">*</i>&nbsp;薪资待遇</label>
                 <div class="layui-input-inline" style="width: 100px;">
-                    <input type="text" name="minpay" value="{$data_1.minpay}" placeholder="￥" autocomplete="off" class="layui-input">
+                    <input type="text" name="minpay" value="{$data_1.minpay}" placeholder="￥"  lay-verify="number"  autocomplete="off" class="layui-input">
                 </div>
                 <div class="layui-form-mid">-</div>
                 <div class="layui-input-inline" style="width: 100px;">
-                    <input type="text" name="maxpay" value="{$data_1.maxpay}" placeholder="￥" autocomplete="off" class="layui-input">
+                    <input type="text" name="maxpay" value="{$data_1.maxpay}" placeholder="￥" lay-verify="number" autocomplete="off" class="layui-input">
                 </div>
             </div>
 

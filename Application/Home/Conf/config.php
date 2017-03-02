@@ -28,6 +28,7 @@ return array(
     ),
     
     'JOBSTATUS'=>array(
+
         '1'=>'已面试',
         '2'=>'未面试',
         '3'=>'邀约',    

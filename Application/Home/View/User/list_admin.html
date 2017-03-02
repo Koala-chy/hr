@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>管理员列表</title>
+    <link rel="icon" href="http://cdn.static.123.com.cn/CloudStatic/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="PUBLIC/plugins/layui/css/layui.css" media="all" />
     <link rel="stylesheet" href="CSS_PATH/global.css" media="all">
     <link rel="stylesheet" href="PUBLIC/plugins/font-awesome/css/font-awesome.min.css">
@@ -22,13 +23,13 @@
 
         <form action="{:U('/User/list_admin')}" method="get" style="display: inline-block" class="layui-form">
 
-            <div class="layui-form-item" style="margin-bottom: -14px;padding-left: 17px">
+            <div class="layui-form-item"  style="margin-bottom: -12px;padding-left: 17px">
                 <div class="layui-input-inline">
-                    <input name="search" value="{$search}" type="text" placeholder="搜索用户"  class="layui-input" style="height: 35px;border-radius: 10px">
+                    <input name="search" value="{$search}" type="text" placeholder="搜索用户"  class="layui-input" style="height: 30px;border-radius: 10px">
                 </div>
 
                 <div class="layui-input-inline">
-                    <button style="height: 35px;border-radius: 10px" class="layui-btn" lay-submit="" lay-filter="demo1">搜索</button>
+                    <button style="height: 30px;border-radius: 10px;line-height: 30px;" class="layui-btn" lay-submit="" lay-filter="demo1">搜索</button>
                 </div>
             </div>
         </form>

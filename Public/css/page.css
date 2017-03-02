@@ -17,6 +17,7 @@
     text-decoration:none; color:#009688;
 }
 .pages a.first,.pages a.prev,.pages a.next,.pages a.end{
+    font-size: 12px;
     margin:0;
 }
 .pages a:hover{

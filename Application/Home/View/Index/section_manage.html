@@ -4,6 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <title>部门及岗位管理</title>
+        <link rel="icon" href="http://cdn.static.123.com.cn/CloudStatic/favicon.ico" type="image/x-icon">
         <link rel="stylesheet" href="PUBLIC/plugins/layui/css/layui.css" media="all" />
         <link rel="stylesheet" href="CSS_PATH/global.css" media="all">
         <link rel="stylesheet" href="PUBLIC/plugins/font-awesome/css/font-awesome.min.css">
@@ -22,19 +23,19 @@
 
                     <form action="__URL__/section_manage" method="get" style="display: inline-block" class="layui-form">
                           
-                        <div class="layui-form-item" style="margin-bottom: -14px;padding-left: 17px">
+                        <div class="layui-form-item" style="margin-bottom: -12px;padding-left: 17px">
                             <div class="layui-input-inline">
-                                <input name="search" value="{$search}" type="text" placeholder="搜索部门" autocomplete="off" class="layui-input" style="height: 35px;border-radius: 10px">
+                                <input name="search" value="{$search}" type="text" placeholder="搜索部门" autocomplete="off" class="layui-input" style="height: 30px;border-radius: 10px">
                             </div>
 
                             <div class="layui-input-inline">
-                                <button style="height: 35px;border-radius: 10px" class="layui-btn" lay-submit="" lay-filter="demo1">搜索</button>
+                                <button style="height: 30px;border-radius: 10px;line-height: 30px;" class="layui-btn" lay-submit="" lay-filter="demo1">搜索</button>
                             </div>
                         </div>
                     </form>
             
             </blockquote>
-            <span style="color: red">说明：修改岗位时，清空岗位内容即为删除岗位</span>
+            <span style="color: red">说明：点击岗位可修改,修改岗位时，清空岗位内容即为删除岗位</span>
             <div class="pages">{$page}</div>
 
             <fieldset class="layui-elem-field">
@@ -57,14 +58,15 @@
                                     <td>{$row.id}</td>
                                     <td>{$row.job}</td>
                                     <td>
-                                        <table class="site-table table-hover">
+                                        <table class="site-table" style="border: none">
                                             <volist name="Job_data" id="v">
                                                 <if  condition="($v['pid']  eq $row['id'])  AND ($v['job'] neq  '' ) ">
                                                     <tr>
-                                                        <td  class="td">
+                                                        <td  class="td" style="border: none">
                                                             <i class="layui-icon">&#xe612;</i>
                                                             <input type="hidden" value="{$v.id}" class="vid">
-                                                            <input disabled="disabled" type="text" value="{$v.job}" class='job'>                          
+                                                            <input disabled="disabled" type="text" value="{$v.job}" class='job' style="border: none;
+                                                             border-bottom: 1px solid #ddd;text-align: center;background-color: white;cursor: pointer;line-height: 22px;">
                                                         </td>
 
                                                     </tr>

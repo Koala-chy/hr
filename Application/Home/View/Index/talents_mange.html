@@ -1,150 +1,152 @@
 <!DOCTYPE html>
 <html>
 
-	<head>
-		<meta charset="UTF-8">
-		<title>人才库</title>
-		<link rel="stylesheet" href="PUBLIC/plugins/layui/css/layui.css" media="all" />
-		<link rel="stylesheet" href="CSS_PATH/global.css" media="all">
-		<link rel="stylesheet" href="PUBLIC/plugins/font-awesome/css/font-awesome.min.css">
-		<link rel="stylesheet" href="CSS_PATH/table.css" />
-                <link rel="stylesheet" href="CSS_PATH/search.css" />
-	</head>
+    <head>
+        <meta charset="UTF-8">
+        <title>人才库</title>
+        <link rel="icon" href="http://cdn.static.123.com.cn/CloudStatic/favicon.ico" type="image/x-icon">
+        <link rel="stylesheet" href="PUBLIC/plugins/layui/css/layui.css" media="all" />
+        <link rel="stylesheet" href="CSS_PATH/global.css" media="all">
+        <link rel="stylesheet" href="PUBLIC/plugins/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="CSS_PATH/table.css" />
+        <link rel="stylesheet" href="CSS_PATH/search.css" />
+    </head>
 
-	<body>
-            {$page}<br><br>
-		<div class="admin-main">
+    <body>
+        {$page}<br><br>
+        <div class="admin-main">
 
-			<blockquote class="layui-elem-quote">
-				<a href="__URL__/add_resume.html" class="layui-btn layui-btn-small" id="add">
-					<i class="layui-icon">&#xe608;</i> 
-				</a>
-                            <form class="form-wrapper" action="__URL__/talents" method="get"> 
-		                    <div style="width:100%; margin-top: 0px; padding-top: 0px;  border:0px solid red;">
+            <blockquote class="layui-elem-quote">
+                <a href="__URL__/add_resume.html" class="layui-btn layui-btn-small" id="add">
+                    <i class="layui-icon">&#xe608;</i> 
+                </a>
+                <form class="form-wrapper" action="__URL__/talents" method="get"> 
+                    <div style="width:100%; margin-top: 0px; padding-top: 0px;  border:0px solid red;">
 
-     <div style="width:250px;  background:white; float:right;">  
-         <input name="keyword" type="text" id="keyword" placeholder="输入姓名检索 ..." required>
-    <input type="submit" value="简历搜索" id="submit">
-</div>
+                        <div style="width:250px;  background:white; float:right;">  
+                            <input name="keyword" type="text" id="keyword" placeholder="输入姓名检索 ..." required>
+                            <input type="submit" value="简历搜索" id="submit">
+                        </div>
 
- </div>
-        </form>                    
-			</blockquote>
- 
-                    
-                   
-			<fieldset class="layui-elem-field">
-				<legend>面试管理</legend>
-				<div class="layui-field-box">
-					<table class="site-table table-hover">
-						<thead>
-                                                    
-							<tr>
-								<th>ID</th>
-								<th>姓名</th>
-								<th>学历</th>
-								<th>手机</th>
-								<th>应聘职位</th>
-								<th>期望职位</th>
-								<th>创建时间</th>
-								<th>状态</th>
-								<th>操作</th>
-							</tr>
-						</thead>
-						<tbody>
-                                                <volist name="lists" id="vo">
-							<tr>
-								<td>{$vo.id}</td>
-								<td>{$vo.name}</td>
-								<td>一本</td>
-								<td>15277496435</td>
-								<td>技术</td>
-								<td>技术</td>
-								<td>2016-11-16 11:50</td>
-								<td>已面试</td>
-								<td>
-									<a href="__URL__/view_resume/id/{$vo.id}" class="layui-btn layui-btn-normal layui-btn-mini">预览</a>
-									<a href="__URL__/edit_resume/id/{$vo.id}" class="layui-btn layui-btn-mini">编辑</a>
-									<a href="__URL__/del_resume/id/{$vo.id}" data-id="1" data-opt="del" class="layui-btn layui-btn-danger layui-btn-mini">删除</a>
-								</td>
-							</tr>
-                                                </volist>
+                    </div>
+                </form>                    
+            </blockquote>
 
-						</tbody>
-					</table>
 
-				</div>
-			</fieldset>
-			<div class="admin-table-page">
-				<div id="page" class="page">
-                                    {$page}
-                                   
-				</div>
-			</div>
-                    
-                    <ul id="biuuu_city_list"></ul>
-                  
-<div id="biuuu_city"></div>
-		</div>
-		<script type="text/javascript" src="PUBLIC/plugins/layui/layui.js"></script>
-               
-                <script src="JS_PATH/laypage/laypage.js"></script>
-<script>
-    function page(curr){
-    $.getJSON("{:U('Index/talents')}", {
-        page: curr //向服务端传的参数，此处只是演示
-    }, function(res){ // 服务器返回的 json 结果
-        // 这里处理 res.lists 中的数据内容，使用 html() 方法显示
-       //此处仅仅是为了演示变化的内容
-           // var demoContent = (new Date().getTime()/Math.random()/1000)|0;
-           // document.getElementById('biuuu_city_list').innerHTML = res.content + demoContent;
-        // 略……
-       // alert(res.content);
-        //显示分页
-        laypage({
-            cont: 'show_pages', // 容器
-            pages: res.allpage,     // 总页数(后台的)
-            curr: res.nowpage, //当前页(后台获取到的)
-            jump: function(obj, first){ //触发分页后的回调(单击页码后)
-                if(!first){ //点击跳页触发函数自身，并传递当前页：obj.curr
-                    page(obj.curr);  // (被单击的页码)
+
+            <fieldset class="layui-elem-field">
+                <legend>面试管理</legend>
+                <div class="layui-field-box">
+                    <table class="site-table table-hover">
+                        <thead>
+
+                            <tr>
+                                <th>ID</th>
+                                <th>姓名</th>
+                                <th>学历</th>
+                                <th>手机</th>
+                                <th>应聘职位</th>
+                                <th>期望职位</th>
+                                <th>创建时间</th>
+                                <th>状态</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <volist name="lists" id="vo">
+                            <tr>
+                                <td>{$vo.id}</td>
+                                <td>{$vo.name}</td>
+                                <td>一本</td>
+                                <td>15277496435</td>
+                                <td>技术</td>
+                                <td>技术</td>
+                                <td>2016-11-16 11:50</td>
+                                <td>已面试</td>
+                                <td>
+                                    <a href="__URL__/view_resume/id/{$vo.id}" class="layui-btn layui-btn-normal layui-btn-mini">预览</a>
+                                    <a href="__URL__/edit_resume/id/{$vo.id}" class="layui-btn layui-btn-mini">编辑</a>
+                                    <a href="__URL__/del_resume/id/{$vo.id}" data-id="1" data-opt="del" class="layui-btn layui-btn-danger layui-btn-mini">删除</a>
+                                </td>
+                            </tr>
+                        </volist>
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </fieldset>
+            <div class="admin-table-page">
+                <div id="page" class="page">
+                    {$page}
+
+                </div>
+            </div>
+
+            <ul id="biuuu_city_list"></ul>
+
+            <div id="biuuu_city"></div>
+        </div>
+        <script type="text/javascript" src="PUBLIC/plugins/layui/layui.js"></script>
+
+        <script src="JS_PATH/laypage/laypage.js"></script>
+        <script>
+            function page(curr) {
+                $.getJSON("{:U('Index/talents')}", {
+                    page: curr //向服务端传的参数，此处只是演示
+                }, function (res) { // 服务器返回的 json 结果
+                    // 这里处理 res.lists 中的数据内容，使用 html() 方法显示
+                    //此处仅仅是为了演示变化的内容
+                    // var demoContent = (new Date().getTime()/Math.random()/1000)|0;
+                    // document.getElementById('biuuu_city_list').innerHTML = res.content + demoContent;
+                    // 略……
+                    // alert(res.content);
+                    //显示分页
+                    laypage({
+                        cont: 'show_pages', // 容器
+                        pages: res.allpage, // 总页数(后台的)
+                        curr: res.nowpage, //当前页(后台获取到的)
+                        jump: function (obj, first) { //触发分页后的回调(单击页码后)
+                            if (!first) { //点击跳页触发函数自身，并传递当前页：obj.curr
+                                page(obj.curr);  // (被单击的页码)
+                            }
+                        }
+                    });
+                });
+            }
+            ;
+
+
+
+            // 分页
+            laypage({
+                // cont: 'show_pages', // 分页容器
+                cont: 'biuuu_city',
+                pages: "{$allpage}", // 总页数
+                //skip: true, //是否开启跳页
+                skin: '#1E9FFF',
+                curr: function () {
+                    var page = "{$nowpage}"; // 当前页(后台获取到的)
+                    // var keyword ="{$keyword}";
+                    return page ? page : 1; // 返回当前页码值
+                }(),
+                jump: function (e, first) { //触发分页后的回调(单击页码后)
+                    if (!first) { //一定要加此判断，否则初始时会无限刷新
+                        var urls = "{:U('Index/talents/',array('page'=>'pageval'))}?keyword={$keyword}";
+                        var nowpage = e.curr;  // (被单击的页码)
+                        urls = urls.replace('pageval', nowpage); // 替换链接样式和页码
+                        var turl = window.location.href = urls;
+                        //  document.getElementById('biuuu_city_list').innerHTML = urls;
+                        return turl;
+
+                        // alert(pageval);
+                    }
+
                 }
-            }
-        });
-    });
-};                
-                    
-                    
- 
-    // 分页
-    laypage({
-       // cont: 'show_pages', // 分页容器
-        cont:'biuuu_city',
-        pages: "{$allpage}",     // 总页数
-        //skip: true, //是否开启跳页
-         skin: '#1E9FFF',
-        curr: function(){
-            var page = "{$nowpage}"; // 当前页(后台获取到的)
-           // var keyword ="{$keyword}";
-            return page ? page : 1; // 返回当前页码值
-        }(),
-        jump: function(e, first){ //触发分页后的回调(单击页码后)
-            if(!first){ //一定要加此判断，否则初始时会无限刷新
-                var urls = "{:U('Index/talents/',array('page'=>'pageval'))}?keyword={$keyword}";
-                var nowpage = e.curr;  // (被单击的页码)
-                urls = urls.replace('pageval',nowpage); // 替换链接样式和页码
-              var turl= window.location.href = urls;
-             //  document.getElementById('biuuu_city_list').innerHTML = urls;
-             return turl;
-             
-            // alert(pageval);
-            }
-            
-        }
-    });
+            });
 
-		</script>
-	</body>
+        </script>
+    </body>
 
 </html>
 

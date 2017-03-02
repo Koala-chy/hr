@@ -14,8 +14,26 @@ use Think\Controller;
 class RecruitController extends Controller{
 
 
-    //部门及岗位管理
+    //招聘人数图表数据调取
 
+     public function   job_chart(){
+
+         $model = D('Requirements');
+
+        $where['type'] = 0;
+
+        $data = $model ->getList('position,number,type',$where);
+
+        $data = json_encode($data);
+
+
+        $this -> ajaxReturn($data);
+
+     }
+
+
+
+    //部门及岗位管理
 
     /**
      * 添加部门
@@ -185,30 +203,27 @@ class RecruitController extends Controller{
         
          if(IS_POST){
             
-                 $model = M('requirements');
+                 $model = D('Requirements');
 
 //       var_dump($model);
 
-                   $data = $model -> create();
-                  $model ->arrivaldate =strtotime($model->arrivaldate);
-                  $model ->createtime =time();
+             if(!empty($model ->create())){
 
-                  $error = $model ->getError();
+                 $model ->arrivaldate =strtotime($model->arrivaldate);
 
-                    if(!empty($data)){
+                 $res = $model ->add();
 
-                            $res = $model ->add();
+                 if($res){
+                     $this ->success('添加成功','/User/list_admin');
+                 }else{
+                     $this ->error('添加失败');
+                 }
 
-                             if($res){
+             }else{
 
-                               $this ->success('添加成功','/Index/recruit');
+                 $this ->error($model ->getError());
+             }
 
-                           }else{
-
-                                 $this ->error($error);
-                       }
-
-                    }
            }
         
     }

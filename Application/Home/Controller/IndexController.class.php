@@ -12,6 +12,55 @@ class IndexController extends Controller {
          $this -> display();
 
      }
+
+
+    /**
+     * 图表数据
+     */
+    public function  main(){
+
+      //统计招聘需求总数
+        $model_1 = D('Requirements');
+
+        $Sum = $model_1 ->getSum('number');
+
+     // 统计人才库总数
+
+        $model_2 = D('Resumes');
+
+        $count = $model_2 ->getCount();
+
+        //未面试
+        $ninterview = $model_2 ->getCount('jobstatus = 0');
+
+        //邀约
+
+        $invite = $model_2 -> getCount('jobstatus = 1');
+
+
+        //已面试
+        $interview = $model_2 ->getCount('jobstatus = 2');
+
+        //面试合格
+        $qualified = $model_2 ->getCount('jobstatus = 3');
+
+        //面试不合格
+
+        $unqualified = $model_2 ->getCount('jobstatus = 4');
+
+         $this ->ninterview = $ninterview;
+         $this ->invite = $invite;
+         $this ->interview = $interview;
+         $this ->qualified = $qualified;
+         $this ->unqualified = $unqualified;
+         $this ->sum = $Sum;
+         $this -> Count =$count;
+         $this ->display();
+
+    }
+
+
+
      
      
      
@@ -71,6 +120,8 @@ class IndexController extends Controller {
      */
     public function Talents() {
         $Data = M($this->trueTableName);
+        $model = M('section');
+
         if (!$Data) {
             echo $Data->getDbError();
         }
@@ -78,11 +129,25 @@ class IndexController extends Controller {
         // 获取当前页码，默认第一页，设置每页默认显示条数
         $nowpage = I('get.page', 1, 'intval');
         $keyword = I('get.keyword', '');
-        $map['name|telphone'] = array('LIKE', "%$keyword%");
-	//$map['telphone'] = array('LIKE', "%$keyword%");
+
+        if (!empty($keyword)){
+            $map['name|telphone'] = array('LIKE', "%$keyword%");
+        }
+        if  (!empty(I('get.reals'))){
+            $map['reals'] = I('get.reals');
+        }
+        if (!empty(I('get.reals')) && !empty(I('get.rjob'))){
+            $map['reals'] = I('get.reals');
+            $map['job'] = I('get.rjob');
+        }
         $limits = 15;
         // 获取总条数
         $count = $Data->where($map)->count();
+
+        if (isset($map['job'])){
+            $map['a.job'] = $map['job'];
+            unset($map['job']);
+        }
         //$Page = new \Think\Page($count,3); //实例化分页类，传入条数为默认3条
         // 计算总页面
         $allpage = ceil($count / $limits);
@@ -95,15 +160,26 @@ class IndexController extends Controller {
             ->order('addsubtime desc')
             ->field('a.*,b.job as bumen')
             ->select();
-	 // echo $Data->getLastSql($lists);//打印SQL语句
-	
-	
-        //dump($lists);
+        $data_1 = $model->field('id,pid,job')->where('pid =0 ')->select();
+        $this ->data =$data_1;
+        //$reals_id = isset( I('get.reals'))? I('get.reals'):'99999';
+        $reals_id = !empty(I('get.reals'))? I('get.reals'):"99999";
+        $arr['pid'] = $reals_id;
+
+        $data_rval =array();
+
+        $data_rval = $model->field('id,pid,job')->where($arr)->select();
+
+        //echo $Data->getLastSql($data_1);//打印SQL语句
+
+
+        //dump($data_rval);
         // 跳转分页输出
         $this->assign('lists', $lists);
         $this->assign('allpage', $allpage);
         $this->assign('nowpage', $nowpage);
         $this->assign('keyword', $keyword);
+        $this->assign('data_rval', $data_rval);
         $this->display('');
     }
 
@@ -195,52 +271,53 @@ class IndexController extends Controller {
 
      */
 
-   public function upjobstatus() {
-	$upload = new \Think\Upload(C('UPLOADFILE'));
+    public function upjobstatus() {
+        $upload = new \Think\Upload(C('UPLOADFILE'));
         $info = $upload->uploadOne($_FILES['file']);
         $Upform = D($this->trueTableName);
-        $id = I('post.id');	
+        $id = I('post.id');
         $_map['id'] = I('post.id');
-	if (I('post.upname') && I('post.uppath') != '' && empty($info['size'])) { 
-	     $upname = I('post.upname');
-	     $uppath  = I('post.uppath');
-	     $_postdata = array(
-	       'jobstatus'=> I('post.jobstatus'),
-	       'filename' => $upname,
-	       'filpath'  => $uppath);	     
-	}elseif(I('post.upname') && I('post.uppath') != '' && !empty($info['size'])){
-	        $upname = $info['savename'];
-		$uppath = $info['savepath'];
-	      $_postdata = array(
-	       'jobstatus'=> I('post.jobstatus'),
-	       'filename' => $upname,
-	       'filpath'  => $uppath);
-	       
-	} elseif(!empty($info['size']) && I('post.upname')=='' ){
-	     	 if (!$info) {// 上传错误提示错误信息
-		    $this->error($upload->getError());
-	        } else {
-                  // 上传成功 获取上传文件信息
-		    $upname = $info['savename'];
-		    $uppath = $info['savepath'];
-		    $_postdata = array(
-		   'jobstatus'=> I('post.jobstatus'),
-		   'filename' => $upname,
-		   'filpath'  => $uppath);
-		}} else {  
-	      $_postdata = array('jobstatus'=>I('post.jobstatus'));
-	
-	}
+        if (I('post.upname') && I('post.uppath') != '' && empty($info['size'])) {
+            $upname = I('post.upname');
+            $uppath  = I('post.uppath');
+            $_postdata = array(
+                'jobstatus'=> I('post.jobstatus'),
+                'filename' => $upname,
+                'filpath'  => $uppath);
+        }elseif(I('post.upname') && I('post.uppath') != '' && !empty($info['size'])){
+
+            $upname = $info['savename'];
+            $uppath = $info['savepath'];
+            $_postdata = array(
+                'jobstatus'=> I('post.jobstatus'),
+                'filename' => $upname,
+                'filpath'  => $uppath);
+
+        } elseif(!empty($info['size']) && I('post.upname')=='' ){
+            if (!$info) {// 上传错误提示错误信息
+                $this->error($upload->getError());
+            } else {
+                // 上传成功 获取上传文件信息
+                $upname = $info['savename'];
+                $uppath = $info['savepath'];
+                $_postdata = array(
+                    'jobstatus'=> I('post.jobstatus'),
+                    'filename' => $upname,
+                    'filpath'  => $uppath);
+            }} else {
+            $_postdata = array('jobstatus'=>I('post.jobstatus'));
+
+        }
         $list = $Upform->where($_map)->setField($_postdata);
-       // echo $Upform->getLastSql($list).'ddddd'.$info['size'];//打印SQL语句
-	//exit;
-	
-       if ($list !== false) {
+
+        if ($list !== false) {
             $this->success('简历状态更新成功！', U('Index/talents'));
         } else {
             $this->error("没有更新任何数据!");
         }
     }
+
+
 
 
     //部门及岗位
@@ -252,19 +329,20 @@ class IndexController extends Controller {
     public function insert() {
         $upload = new \Think\Upload(C('UPLOADFILE'));
         $info = $upload->uploadOne($_FILES['file']);
-	 if (!empty($info['size'])) {
+        if (!empty($info['size'])) {
             if (!$info) {// 上传错误提示错误信息
                 $this->error($upload->getError());
             } else {// 上传成功 获取上传文件信息
                 //  echo $info['savepath'].$info['savename'];
                 $upname = $info['savename'];
                 $uppath = $info['savepath'];
+
             }
         }
-	
-	
+
+
         $_date = date('Y-m-d H:i:s',time());
-        $Form = D($this->trueTableName);
+        $Form = M($this->trueTableName);
         if ($Form->create()) {
 
             $Form->filename = $upname;
@@ -280,6 +358,7 @@ class IndexController extends Controller {
             $this->error($Form->getError());
         }
     }
+
 
     //部门及岗位管理
     /*
@@ -311,20 +390,38 @@ class IndexController extends Controller {
      * @开发者:tianYongquan
 
      */
-     public function interview() {
+    public function interview() {
         $Data = M($this->trueTableName);
+        $model = M('section');
         if (!$Data) {
             echo $Data->getDbError();
         }
         // 获取当前页码，默认第一页，设置每页默认显示条数
         $nowpage = I('get.page', 1, 'intval');
         $keyword = I('get.keyword', '');
-        $map['name'] = array('LIKE', "%$keyword%");
-	$map['jobstatus']   = array('in','1,2,3');
+
+        if (!empty($keyword)){
+            $map['name|telphone'] = array('LIKE', "%$keyword%");
+        }
+        if  (!empty(I('get.reals'))){
+            $map['reals'] = I('get.reals');
+        }
+        if (!empty(I('get.reals')) && !empty(I('get.rjob'))){
+            $map['reals'] = I('get.reals');
+            $map['job'] = I('get.rjob');
+        }
+
+
+        // $map['name'] = array('LIKE', "%$keyword%");
+        $map['jobstatus']   = array('in','1,4,5');
         //$map['jobstatus']=1;
         $limits = 10;
         // 获取总条数
         $count = $Data->where($map)->count();
+        if (isset($map['job'])){
+            $map['a.job'] = $map['job'];
+            unset($map['job']);
+        }
         //$Page = new \Think\Page($count,3); //实例化分页类，传入条数为默认3条
         // 计算总页面
         $allpage = ceil($count / $limits);
@@ -338,14 +435,40 @@ class IndexController extends Controller {
             ->order('addsubtime desc')
             ->select();
 
+        //echo $Data->getLastSql($lists);//打印SQL语句
+
+        $data_1 = $model->field('id,pid,job')->where('pid =0 ')->select();
+        $this ->data =$data_1;
+        $reals_id = !empty(I('get.reals'))? I('get.reals'):"99999";
+        $arr['pid'] = $reals_id;
+
+        $data_rval =array();
+
+        $data_rval = $model->field('id,pid,job')->where($arr)->select();
 
         // 跳转分页输出
         $this->assign('lists', $lists);
         $this->assign('allpage', $allpage);
         $this->assign('nowpage', $nowpage);
         $this->assign('keyword', $keyword);
+        $this->assign('data_rval', $data_rval);
         $this->display('');
     }
+
+
+    public function view_uploadfile(){
+
+        $_str =  header('Content-Type, application/vnd.ms-word');
+        $_str .= header("Content-Type", "application/x-msword");
+        $_str .= header("Content-Disposition", "attachment; filename=" . fileName . ".doc");
+        $_str .=  header("Expires", "0");
+        $_str .= header("Pragma", "cache");
+        $_str .=  header("Cache-Control", "must-revalidate, post-check=0, pre-check=0");
+
+        $this->display();
+
+    }
+
 
 
     //部门及岗位管理

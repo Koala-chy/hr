@@ -3,21 +3,21 @@
 
 <head>
     <meta charset="utf-8">
-    <title>修改简历</title>
+    <title>{$info.name}简历信息</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
-
+    <link rel="icon" href="http://cdn.static.123.com.cn/CloudStatic/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="PUBLIC/plugins/layui/css/layui.css" media="all" />
     <link rel="stylesheet" href="PUBLIC/plugins/font-awesome/css/font-awesome.min.css">
 </head>
 <body>
 <div style="margin: 15px;">
     <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-        <legend>查看简历</legend>
+        <legend>{$info.name}简历</legend>
     </fieldset>
 
     <form class="layui-form" method='post' enctype="multipart/form-data"  action="__URL__/upjobstatus" name="theForm">
@@ -27,9 +27,9 @@
         <div class="layui-form-item">
 
             <div class="layui-inline">
-               <label class="layui-form-label">姓名</label>
+               <label class="layui-form-label">姓名：</label>
                   <div class="layui-input-inline">
-                  {$info.name}
+                      <li style="padding-top: 10px;">  {$info.name}</li>
                </div>
                <a href="../../../../../ThinkDemo/Examples/curd/Tpl/Index/edit.html"></a>
             </div>
@@ -39,10 +39,11 @@
             <div class="layui-inline"></div>
 
             <div class="layui-inline">
-                <label class="layui-form-label">性别</label>
+                <label class="layui-form-label">性别：</label>
                 <div class="layui-input-inline">
-                    <eq name="info.sex" value="1">男</eq>
+                    <li style="padding-top: 10px;"><eq name="info.sex" value="1">男</eq>
                     <eq name="info.sex" value="0">女</eq>
+                    </li>
                 </div>
             </div>
 
@@ -52,9 +53,9 @@
         <div class="layui-form-item">
 
             <div class="layui-inline">
-                <label class="layui-form-label">手机号</label>
+                <label class="layui-form-label">手机号：</label>
                 <div class="layui-input-inline">
-                    {$info.telphone}
+                    <li style="padding-top: 10px;"> {$info.telphone}</li>
                   
                 </div>
             </div>
@@ -64,9 +65,9 @@
             <div class="layui-inline"></div>
 
             <div class="layui-inline">
-                <label class="layui-form-label">邮箱</label>
+                <label class="layui-form-label">邮箱：</label>
                 <div class="layui-input-inline">
-                    {$info.email}
+                    <li style="padding-top: 10px;">   {$info.email}</li>
                     
                 </div>
             </div>
@@ -76,10 +77,10 @@
         <div class="layui-form-item">
 
             <div class="layui-inline">
-                <label class="layui-form-label">应聘岗位</label>
+                <label class="layui-form-label">应聘岗位：</label>
 
                 <div class="layui-input-inline">
-                    {$info.bumen} / {$info.job}
+                    <li style="padding-top: 10px;"> {$info.bumen} / {$info.job}</li>
                    
                 </div>
 
@@ -89,9 +90,9 @@
 
         <div class="layui-form-item">
             <div class="layui-inline">
-                <label class="layui-form-label">最高学历 </label>
+                <label class="layui-form-label">最高学历 :</label>
                 <div class="layui-input-inline">
-                     {$info.edulevel}
+                    <li style="padding-top: 10px;">  {$info.edulevel}</li>
                   </div>
             </div>
 
@@ -100,9 +101,9 @@
             <div class="layui-inline"></div>
 
             <div class="layui-inline">
-                <label class="layui-form-label">出生年月</label>
+                <label class="layui-form-label">出生年月：</label>
                 <div class="layui-input-block">
-                   {$info.birthday}
+                    <li style="padding-top: 10px;">  {$info.birthday}</li>
                 </div>
             </div>
 
@@ -113,9 +114,9 @@
         <div class="layui-form-item">
 
             <div class="layui-inline">
-                <label class="layui-form-label">工作经验</label>
+                <label class="layui-form-label">工作经验：</label>
                 <div class="layui-input-inline">
-                   {$info.experience}
+                    <li style="padding-top: 10px;"> {$info.experience}</li>
                 </div>
             </div>
 
@@ -124,13 +125,13 @@
             <div class="layui-inline"></div>
 
             <div class="layui-inline">
-                <label class="layui-form-label">期望月薪</label>
+                <label class="layui-form-label">期望月薪：</label>
                 <div class="layui-input-inline" style="width: 100px;">
-                    {$info.salarystart}K                  
+                    <li style="padding-top: 10px;"> {$info.salarystart}K    </li>              
                 </div>
                 <div class="layui-form-mid">-</div>
                 <div class="layui-input-inline" style="width: 100px;">
-                    {$info.pricemax}K
+                    <li style="padding-top: 10px;">  {$info.pricemax}K</li>
                 </div>
             </div>
 
@@ -151,7 +152,7 @@
             </div>
                
             <div class="layui-box layui-upload-button">
-                <span class="layui-upload-icon"><i class="layui-icon"></i> <a href="PUBLIC/UPLOAD/{$info.filpath}{$info.filename}">{$info.filename}</a>已上传简历符件
+                <span class="layui-upload-icon"><i class="layui-icon"></i> <a href="__URL__/view_uploadfile/path/{$info.filpath}/upname/{$info.filename}">{$info.filename}</a>已上传简历符件
              
                 </span>
             </div>
@@ -159,7 +160,11 @@
         </div>
         
           <div class="layui-form-item">
-    <label class="layui-form-label">简历状态</label>
+    <label class="layui-form-label">简历状态
+    
+    
+    
+    </label>
     <div class="layui-input-block">
         <if condition="$Think.get.ive eq 'tive' ">
             <foreach name="Think.config.JOBSTATUS" item="v" key="k">

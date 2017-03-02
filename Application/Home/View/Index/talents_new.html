@@ -12,46 +12,38 @@
 	</head>
 
 	<body>
+            {$page}<br><br>
+		<div class="admin-main">
 
-		<div class="admin-main"> 
-                    <form action="__URL__/talents" method="get"  class="layui-form">
 			<blockquote class="layui-elem-quote">
 				<a href="__URL__/add_resume.html" class="layui-btn layui-btn-small" id="add">
 					<i class="layui-icon">&#xe608;</i> 新增简历
 				</a>
-                            <a href="../../../../../resume - 副本/Application/Home/View/Index/talents.html"></a>
-
-                            
-                              <div class="layui-inline">
+              <div class="layui-inline">
                 <label class="layui-form-label">按部门/岗位</label>
 
                 <div class="layui-input-inline">
                     <select name="reals"  id="reals"  lay-filter="reals">
                         
-                         <option value="">请选择</option>  
-                         <a href="../../Conf/config.php"></a>
-                           <if condition="Think.get.reals neq ''">
-                                 <option value="">所有部门</option>
-                         
+                         <option value="">请选择</option>                     
                          <foreach name='data' item='v'>
                              <option value="{$v['id']}" <eq name="Think.get.reals" value="$v['id']">selected</eq>>{$v.job}</option>
                         </foreach>
-                           </if>
+                        
                     </select>
                 </div>
 
                 <div class="layui-input-inline">
-                    <select name="job" id="job" lay-filter="job" >
+                    <select name="rjob" id="job" lay-filter="job" >
                            <option value="">请选择</option>
-                           <if condition="Think.get.job neq ''">
-                                 <option value="">所有岗位</option>
+                         
                            
                            <volist name="data_rval" id="vo">
                                
                                <option value="{$vo.job}" <eq name="Think.get.rjob" value="$vo['job']">selected</eq>> {$vo.job}</option>
                            
                     </volist>
-                           </if> 
+                           
                     </select>
                 </div>
 
@@ -68,13 +60,25 @@
                             <div class="layui-input-inline">
                                 <button style="height: 35px;border-radius: 10px" class="layui-btn" lay-submit="" lay-filter="demo1">搜索</button>
                             </div>
-                          
+                            
+             
+                            
+                            
                         </div>
+                            
                                                 
 			</blockquote>
                         
-                         
+                        
+                        
+                        
+                        
+                        
+                        
+                        
    </form>
+                  
+                    
                    
 			<fieldset class="layui-elem-field">
 				<legend>简历列表</legend>
@@ -114,12 +118,14 @@
                                                                             </font>
                                                                         </case>
                                                                                                                                             <case value="3">邀约</case>
-                                                                           
-                                                                        <case value="4">
+                                                                            <case value="4">
+                                                                                  <font style="color:#EE7600">
+                                                                                  不邀约</font></case>
+                                                                        <case value="5">
                                                                            <font style="color:#EE7AE9"> 面试合格
                                                                            </font>
                                                                         </case>
-                                                                         <case value="5">
+                                                                         <case value="6">
                                                                               <font style="color:#EE9A00">
                                                                              不合格
                                                                              </font>
@@ -157,7 +163,8 @@
                 <script src="JS_PATH/laypage/laypage.js"></script>
 <script>
     
-      layui.use(['form', 'layedit', 'laydate'], function() {
+    
+     layui.use(['form', 'layedit', 'laydate'], function() {
         var form = layui.form(),
                 $ = layui.jquery,
                 layer = layui.layer,
@@ -172,18 +179,41 @@
         });
         
             form.on('select(job)', function(data){
-                  
-                   var rjob = document.getElementById("job").value;
-                   var reava = document.getElementById("reals").value;
+                   //var reava = document.getElementById("reals").value;
+                   var rjob = document.getElementById("rjob").value;
                    window.location.href="{:U('Index/Talents/')}?reals="+reava+"&rjob="+rjob;
-           
+         
         
         });
       
         
     });
-      
     
+    function page(curr){
+    $.getJSON("{:U('Index/talents')}", {
+        page: curr //向服务端传的参数，此处只是演示
+    }, function(res){ // 服务器返回的 json 结果
+        // 这里处理 res.lists 中的数据内容，使用 html() 方法显示
+       //此处仅仅是为了演示变化的内容
+           // var demoContent = (new Date().getTime()/Math.random()/1000)|0;
+           // document.getElementById('biuuu_city_list').innerHTML = res.content + demoContent;
+        // 略……
+       // alert(res.content);
+        //显示分页
+        laypage({
+            cont: 'show_pages', // 容器
+            pages: res.allpage,     // 总页数(后台的)
+            curr: res.nowpage, //当前页(后台获取到的)
+            jump: function(obj, first){ //触发分页后的回调(单击页码后)
+                if(!first){ //点击跳页触发函数自身，并传递当前页：obj.curr
+                    page(obj.curr);  // (被单击的页码)
+                }
+            }
+        });
+    });
+};                
+                    
+                    
  
     // 分页
     laypage({
@@ -216,3 +246,5 @@
 	</body>
 
 </html>
+
+

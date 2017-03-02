@@ -9,6 +9,7 @@
         <meta name="apple-mobile-web-app-status-bar-style" content="black">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="format-detection" content="telephone=no">
+        <link rel="icon" href="http://cdn.static.123.com.cn/CloudStatic/favicon.ico" type="image/x-icon">
         <link rel="stylesheet" href="PUBLIC/plugins/layui/css/layui.css" media="all" />
         <link rel="stylesheet" href="CSS_PATH/global.css" media="all">
         <link rel="stylesheet" href="PUBLIC/plugins/font-awesome/css/font-awesome.min.css">
@@ -21,7 +22,8 @@
                 <div class="layui-main">
                     <div class="admin-login-box">
                         <a class="logo" style="left: 0;" href="">
-                            <span style="font-size: 22px;">人力资源管理V1.0</span>
+                            <img   src="IMG_PATH/logo.png"  style="width: 34px;height: 31px;margin-bottom: 6px">
+                            <span style="font-size: 18px;font-weight: bold">人力资源管理系统</span>
                         </a>
                         
                         <div class="admin-side-toggle">
@@ -45,11 +47,11 @@
                                 <!--<dd>-->
                                 <!--<a href="javascript:;"><i class="fa fa-gear" aria-hidden="true"></i> 设置</a>-->
                                 <!--</dd>-->
-                                <dd id="lock">
-                                    <a href="javascript:;">
-                                        <i class="fa fa-lock" aria-hidden="true" style="padding-right: 3px;padding-left: 1px;"></i> 锁屏 (Alt+L)
-                                    </a>
-                                </dd>
+                                <!--<dd id="lock">-->
+                                    <!--<a href="javascript:;">-->
+                                        <!--<i class="fa fa-lock" aria-hidden="true" style="padding-right: 3px;padding-left: 1px;"></i> 锁屏 (Alt+L)-->
+                                    <!--</a>-->
+                                <!--</dd>-->
                                 <dd>
                                     <a href="{:U('/User/loginOut')}"><i class="fa fa-sign-out" aria-hidden="true"></i> 注销</a>
                                 </dd>
@@ -74,7 +76,7 @@
                             <cite>首页</cite>
                         </li>
                     </ul>
-                    <div class="layui-tab-content" style="min-height: 150px; padding: 5px 0 0 0;">
+                    <div class="layui-tab-content" style="min-height: 150px; padding: 0;">
                         <div class="layui-tab-item layui-show">
                             <iframe src="__URL__/main.html"></iframe>
                         </div>
@@ -113,7 +115,9 @@
                     var $ = layui.jquery,
                             layer = layui.layer;
 
-                 
+                     layui.config({
+                         base: '/Public/js/'
+                      });
                     
                     $('#del_runtime').on('click',function(){
                          $.ajax({

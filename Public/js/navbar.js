@@ -16,7 +16,7 @@ layui.define(['element', 'common'], function(exports) {
 			data: undefined, //数据源
 			url: undefined, //数据源地址
 			type: 'GET', //读取方式
-			cached: false, //是否使用缓存
+			cached: false, //navbar.js 是否使用缓存
 			spreadOne:false //设置是否只展开一个二级菜单
 		};
 		this.v = '0.0.1';
