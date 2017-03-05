@@ -214,7 +214,7 @@ class RecruitController extends Controller{
                  $res = $model ->add();
 
                  if($res){
-                     $this ->success('添加成功','/User/list_admin');
+                     $this ->success('添加成功','/Index/recruit');
                  }else{
                      $this ->error('添加失败');
                  }

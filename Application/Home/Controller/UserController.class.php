@@ -3,22 +3,40 @@
 namespace   Home\Controller;
 
 use Think\Controller;
-   
+use Think\Verify;
+
 
 //角色管理
 class UserController  extends  Controller{
-    
-            
+
+
+
+    //验证码
+    public function auth_code(){
+
+        $Verify =new Verify();
+        $Verify->length =4;
+        $Verify->fontSize =18;
+        $Verify ->entry();
+
+    }
+
+
     /**
      * 验证登陆
      */
-    
     public function checkLogin(){
         
            if(IS_POST){
           
-                 $model = D('user');
-                 
+                $model = D('user');
+
+                $code = I('post.code');
+
+                $verify =new Verify();
+
+                $reg_code =$verify ->check($code);
+
                 $where['username'] = I('post.username');
              
                 $where['password'] = sha1(sha1(I('post.password')));
@@ -26,24 +44,33 @@ class UserController  extends  Controller{
                 $res = $model ->getFind($where);
                 
 //                var_dump($res);
-                
-                 if($res != NULL){
-                      
-                     session('Userid', $res['id']);
-                    
-                     session('name', $res['username']);
-                     
-          
-                     redirect('/Index/index') ;
-                     
-                     
-                 }else{
-                     
-                      $this ->error('登陆失败');
-                      
-                      exit();
-                 }
-                 
+
+               if($reg_code){
+
+                   if($res != NULL){
+
+                       session('Userid', $res['id']);
+
+                       session('name', $res['username']);
+
+                       session('rank',$res['rank']);
+
+                       redirect('/Index/index') ;
+
+                   }else{
+
+                       $this ->error('登陆失败');
+
+                       exit();
+                   }
+
+               }else{
+
+                   $this -> error('验证码错误');
+
+                   exit();
+               }
+
            }
         
         

@@ -137,78 +137,136 @@
 
         </div>
 
+       <div class="layui-form-item">
+            <label class="layui-form-label">简历附件</label>
 
-        <div class="layui-form-item">
-            <label class="layui-form-label">简历上传</label>
-            <div class="layui-box layui-upload-button">
-                <input type="file" name="file" class="layui-upload-file">
-                <span class="layui-upload-icon"><i class="layui-icon"></i>上传简历附件
-             
-                </span>
-                
-               
-                
-                  
-            </div>
-               
-            <div class="layui-box layui-upload-button">
-                <span class="layui-upload-icon"><i class="layui-icon"></i> <a href="__URL__/view_uploadfile/path/{$info.filpath}/upname/{$info.filename}">{$info.filename}</a>已上传简历符件
-             
-                </span>
-            </div>
-            
+            <if condition="($info['filpath'] eq '') AND ($info['filename'] eq '') ">
+
+
+                <div class="layui-box layui-upload-button">
+                    <input type="file" name="file" class="layui-upload-file">
+                    <span class="layui-upload-icon"><i class="layui-icon"></i>暂无附件，请上传</span>
+                </div>
+
+                <else />
+
+                <div class="layui-btn layui-btn-primary">
+
+                    <a id="parentIframe"  href="javascript:;"> <i class="layui-icon">&#xe621;</i>附件预览</a>
+                </div>
+
+            </if>
+
         </div>
         
-          <div class="layui-form-item">
-    <label class="layui-form-label">简历状态
-    
-    
-    
-    </label>
-    <div class="layui-input-block">
-        <if condition="$Think.get.ive eq 'tive' ">
-            <foreach name="Think.config.JOBSTATUS" item="v" key="k">
-             <if condition="$k gt 3 ">
-                   <input type="radio"  name="jobstatus" value="{$k}" title="{$v}" <eq name="info.jobstatus" value="$k">checked</eq>>                          
-             </if>
-         </foreach>
-            
-            
-            <else />
-       
-         <foreach name="Think.config.JOBSTATUS" item="v" key="k">
-             <if condition="$k lt 4 ">
-                     <input type="radio"  name="jobstatus" value="{$k}" title="{$v}" <eq name="info.jobstatus" value="$k">checked</eq>>                          
-             </if>
-         </foreach>
-         </if>
-     
-    </div>
-  </div>
-        
+       <div class="layui-form-item">
+             <label class="layui-form-label">简历状态:</label>
+
+          <if condition="($info.jobstatus gt 3 )"  >
+
+
+               <div class="layui-input-inline">
+                       <li style="padding-top: 10px;color: red">
+
+                             <switch name="info.jobstatus" >
+
+                                  <case value="4" >面试合格</case>
+                                  <case value="5">面试不合格</case>
+                             </switch>
+                       </li>
+               </div>
+
+     <else/>
+
+
+          <div class="layui-input-block">
+              <if condition="$Think.get.ive eq 'tive' ">
+                  <foreach name="Think.config.JOBSTATUS" item="v" key="k">
+                      <if condition="$k gt 3 ">
+                          <input type="radio"  name="jobstatus" value="{$k}" title="{$v}" <eq name="info.jobstatus" value="$k">checked</eq>>
+                      </if>
+                  </foreach>
+
+
+                  <else />
+
+                  <foreach name="Think.config.JOBSTATUS" item="v" key="k">
+                      <if condition="$k lt 4 ">
+                          <input type="radio"  name="jobstatus" value="{$k}" title="{$v}"  <eq name="info.jobstatus" value="$k">checked</eq>>
+                      </if>
+                  </foreach>
+              </if>
+
+          </div>
+
+
+   </if>
+
+     </div>
    
 
 
         <div class="layui-form-item">
-            <div class="layui-input-block">
-              <!-- <button class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>-->
-                <button class="layui-btn" lay-submit="" >立即提交</button>
-                <!--<button type="reset" class="layui-btn layui-btn-primary">返回</button>-->
-                
+            <div class="layui-input-block">             
+                <button class="layui-btn" lay-submit="" >立即提交</button>           
+              
                  <a href="{$Think.server.http_referer}"  class="layui-btn layui-btn-primary">返回</a>
             </div>
         </div>
     </form>
 </div>
+      <script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript" src="PUBLIC/plugins/layui/layui.js"></script>
+
 <script>
+    
+    //限制上传文件的类型和大小
+function validate_img(ele){
+    // 返回 KB，保留小数点后两位
+    //alert((ele.files[0].size/(1024*1024)).toFixed(2));
+    var file = ele.value;          
+    if(!/.(pdf)$/.test(file)){
+              
+      alert("简历类型格式必须pdf");
+           return false;
+           
+     }else{
+              
+         //alert((ele.files[0].size).toFixed(2));
+         //返回Byte(B),保留小数点后两位
+        if(((ele.files[0].size).toFixed(2))>=(2*1024*1024)){
+                 
+          alert("请上传小于2M的图片");
+                 return false;
+         }
+     }
+          alert("图片通过");
+}
+    
+    
+//iframe层
+       $('#parentIframe').on('click', function(){
+            layer.open({
+              type: 2,
+              title: '{$info.name}简历信息',
+              shadeClose: false,
+              maxmin:true,
+              skin: 'layui-layer-molv',
+              shade: 0.8,
+              area: ['780px', '100%'],
+              offset: ['0px', '50px'], //设置坐标              
+              content: '__URL__/view_uploadfile/path/{$info.filpath}/upname/{$info.filename}' //iframe的url
+            }); 
+    });
     layui.use(['form', 'layedit', 'laydate'], function() {
         var form = layui.form(),
                 $ = layui.jquery,
                 layer = layui.layer,
                 layedit = layui.layedit,
                 laydate = layui.laydate;
-
+                
+                
+            
 
         //创建一个编辑器
         var editIndex = layedit.build('LAY_demo_editor');

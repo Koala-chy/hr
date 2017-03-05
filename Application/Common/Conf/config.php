@@ -23,12 +23,16 @@ return array(
             'JS_PATH' => '/Public/js',
             'IMG_PATH' => '/Public/images',
             'UPLOAD' => '/uploads',
+            'FILEPATH'=>'/Public/Uploads'
         ),
 
 
     //I方法 安全过滤
 
    'DEFAULT_FILTER'        =>  'strip_tags,stripslashes',
+
+
+
 
 
 );

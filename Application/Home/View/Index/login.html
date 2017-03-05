@@ -26,15 +26,30 @@
                         </label>
                         <input type="text" name="username" lay-verify="required"autofocus="autofocus"placeholder="这里输入登录名" class="layui-input">
                     </div>
+
+
                     <div class="layui-form-item">
                         <label class="beg-login-icon">
                             <i class="layui-icon">&#xe642;</i>
                         </label>
                         <input type="password" name="password" lay-verify="required" autocomplete="off" placeholder="这里输入密码" class="layui-input">
                     </div>
+
+
+                    <div class="layui-form-item">
+                        <label class="beg-login-icon">
+                            <i class="layui-icon">&#x1002;</i>
+                        </label>
+                        <input style="width: 138px" type="text" name="code" lay-verify="required" autocomplete="off" placeholder="验证码" class="layui-input">
+
+                        <img style="float: right;width: 122px;margin-top: -38px;cursor: pointer" onclick="this.src=this.src+'?'" src="/User/auth_code">
+
+                    </div>
+
+
                     <div class="layui-form-item">                    
                         <div  style="text-align: center">
-                            <button class="layui-btn layui-btn-primary" lay-submit lay-filter="login">
+                            <button class="layui-btn  layui-btn-warm" lay-submit lay-filter="login" style="width: 100%">
                                 <i class="layui-icon">&#xe650;</i> 登录
                             </button>
                         </div>

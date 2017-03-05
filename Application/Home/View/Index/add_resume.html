@@ -98,9 +98,9 @@
         <div class="layui-form-item">
 
             <div class="layui-inline">
-                <label class="layui-form-label">最高学历</label>
+                <label class="layui-form-label"><i style="color: red;font-size: 18px">*</i> 最高学历</label>
                 <div class="layui-input-inline">
-                    <select name="eduLevel" id="eduLevel">
+                    <select name="eduLevel" id="eduLevel" lay-verify="required">
                         <option value="">请选择</option>
                          
                    <foreach name="Think.config.EDULEVEL" item="v" key="k" >
@@ -129,9 +129,9 @@
         <div class="layui-form-item">
 
             <div class="layui-inline">
-                <label class="layui-form-label">工作经验</label>
+                <label class="layui-form-label"><i style="color: red;font-size: 18px">*</i> 工作经验</label>
                 <div class="layui-input-inline">
-                    <select name="experience" id="experience">
+                    <select name="experience" id="experience" lay-verify="required">
                         <option value="">请选择</option>
                         <foreach name="Think.config.EXPERIENCE" item="v" key="k">
                             <option value="{$v}" <eq name="info.experience" value="$v">selected</eq>>{$v}</option>
@@ -146,13 +146,13 @@
             <div class="layui-inline"></div>
 
             <div class="layui-inline">
-                <label class="layui-form-label">期望月薪</label>
+                <label class="layui-form-label"><i style="color: red;font-size: 18px">*</i> 期望月薪</label>
                 <div class="layui-input-inline" style="width: 100px;">
-                    <input type="text" name="salaryStart" placeholder="￥" autocomplete="off" class="layui-input">
+                    <input lay-verify="number" type="text" name="salaryStart" placeholder="￥" autocomplete="off" class="layui-input">
                 </div>
                 <div class="layui-form-mid">-</div>
                 <div class="layui-input-inline" style="width: 100px;">
-                    <input type="text" name="pricemax" placeholder="￥" autocomplete="off" class="layui-input">
+                    <input lay-verify="number" type="text" name="pricemax" placeholder="￥" autocomplete="off" class="layui-input">
                 </div>
             </div>
 
@@ -178,6 +178,7 @@
         </div>
     </form>
 </div>
+   
 <script type="text/javascript" src="PUBLIC/plugins/layui/layui.js"></script>
 <script>
     layui.use(['form', 'layedit', 'laydate'], function() {

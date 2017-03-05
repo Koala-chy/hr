@@ -8,28 +8,28 @@ var navs = [
 	},
         
         
-                      {
+  {
 	"title": "角色管理",
 	"icon": "&#xe613;",
 	"spread": true,
 	"children": [
 		{
-                                                "title": "添加管理员",
-                                                "href": "/Home/User/add_admin"
+			"title": "添加管理员",
+			"href": "/Home/User/add_admin"
 		},
 
 		{
 		    "title": "管理员列表",
 		    "href": "/Home/User/list_admin"
-	                      },
+	    },
                               
-                                             {
+	    {
 		    "title": "修改密码",
 		    "href": "/Home/User/alter_psd"
-	                      }
+	    }
 
 		]
-                       },
+   },
               
 
 

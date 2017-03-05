@@ -40,6 +40,54 @@ class TestBehavior extends Behavior {
     }
 
 
+     //权限判定
+
+
+     //普通用户
+
+        $normal = array(
+
+             'add_admin','list_admin','section_manage','recruit','talents','interview'
+
+        );
+
+        if(MODULE_NAME=='Home'){
+
+            if( in_array(ACTION_NAME,$normal)){
+
+                if(session('rank') == 0){
+
+                     echo "<div style='text-align: center;margin-top: 80px'><img src='/Public/images/permission.png'></div>";
+
+                    exit;
+                }
+            }
+        }
+
+
+
+
+      //管理员
+
+        $admin  = array(
+
+               'add_admin','list_admin'
+
+
+        );
+
+        if(MODULE_NAME=='Home'){
+
+            if( in_array(ACTION_NAME,$admin)){
+
+                if(session('rank') == 1){
+
+                    echo "<div style='text-align: center;margin-top: 80px'><img src='/Public/images/permission.png'></div>";
+
+                    exit;
+                }
+            }
+        }
 
 
     }

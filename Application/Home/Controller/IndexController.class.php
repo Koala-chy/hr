@@ -31,22 +31,22 @@ class IndexController extends Controller {
         $count = $model_2 ->getCount();
 
         //未面试
-        $ninterview = $model_2 ->getCount('jobstatus = 0');
+        $ninterview = $model_2 ->getCount('jobstatus = 2');
 
         //邀约
 
-        $invite = $model_2 -> getCount('jobstatus = 1');
+        $invite = $model_2 -> getCount('jobstatus = 3');
 
 
         //已面试
-        $interview = $model_2 ->getCount('jobstatus = 2');
+        $interview = $model_2 ->getCount('jobstatus = 1');
 
         //面试合格
-        $qualified = $model_2 ->getCount('jobstatus = 3');
+        $qualified = $model_2 ->getCount('jobstatus = 4');
 
         //面试不合格
 
-        $unqualified = $model_2 ->getCount('jobstatus = 4');
+        $unqualified = $model_2 ->getCount('jobstatus = 5');
 
          $this ->ninterview = $ninterview;
          $this ->invite = $invite;
@@ -118,7 +118,7 @@ class IndexController extends Controller {
      * @开发者:tianYongquan
 
      */
-    public function Talents() {
+    public function talents() {
         $Data = M($this->trueTableName);
         $model = M('section');
 
@@ -458,13 +458,15 @@ class IndexController extends Controller {
 
     public function view_uploadfile(){
 
-        $_str =  header('Content-Type, application/vnd.ms-word');
-        $_str .= header("Content-Type", "application/x-msword");
-        $_str .= header("Content-Disposition", "attachment; filename=" . fileName . ".doc");
-        $_str .=  header("Expires", "0");
-        $_str .= header("Pragma", "cache");
-        $_str .=  header("Cache-Control", "must-revalidate, post-check=0, pre-check=0");
 
+        //new \COM("Word.Application") or die ("Could not initialise Object.");
+
+        //echo word2pdf();
+        //path/2017-03-03//upname/58b910f2af216.pdf
+        $_file_path = I('get.path');
+        $_file_name = I('get.upname');
+        $_new_fileupload = $_file_path."/".$_file_name;
+        $this->assign('file_path', $_new_fileupload);
         $this->display();
 
     }

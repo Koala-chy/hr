@@ -8,7 +8,7 @@
 		<link rel="stylesheet" href="CSS_PATH/global.css" media="all">
 		<link rel="stylesheet" href="PUBLIC/plugins/font-awesome/css/font-awesome.min.css">
 		<link rel="stylesheet" href="CSS_PATH/table.css" />
-                <link rel="stylesheet" href="CSS_PATH/search.css" />
+
 	</head>
 
 	<body>
@@ -62,7 +62,7 @@
                                 
                                 
                                 
-                                <input name="keyword" type="text" placeholder="姓名/手机搜索" autocomplete="off" class="layui-input" style="height: 35px;border-radius: 10px">
+                                <input name="keyword" type="text" placeholder="姓名/手机搜索" autocomplete="off" class="layui-input" style="height: 35px;border-radius: 10px;line-height: 30px">
                             </div>
 
                             <div class="layui-input-inline">
@@ -167,7 +167,7 @@
                form.on('select(reals)', function(data){
                    var reava = document.getElementById("reals").value;
                                  
-                   window.location.href="{:U('Index/Talents/')}?reals="+reava;
+                   window.location.href="{:U('Index/talents/')}?reals="+reava;
                   
         });
         
@@ -175,7 +175,7 @@
                   
                    var rjob = document.getElementById("job").value;
                    var reava = document.getElementById("reals").value;
-                   window.location.href="{:U('Index/Talents/')}?reals="+reava+"&rjob="+rjob;
+                   window.location.href="{:U('Index/talents/')}?reals="+reava+"&rjob="+rjob;
            
         
         });
